@@ -1,6 +1,7 @@
-let isRunning;
+let isRunning = null;
 let seconds = 0;
 let milliSeconds = 1;
+let isAlreadySecond = null;
 let isPressed = false;
 let milliSecondsDuration = 100;
 let localStorageName = 'chrono-rubiks-timer-2021';
@@ -22,17 +23,17 @@ const runTimer = (lever) => {
 }
 
 const resetTimer = () => {
+    lever = false;
     seconds = 0;
     milliSeconds = 00;
+    clearInterval(isRunning);
     changeValue('0 ', secondsElement);
     changeValue('00', milliSecondsElement)
-    clearInterval(isRunning);
-    lever = false;
 }
 
 const timer = () => {
     milliSeconds++;
-    let isAlreadySecond = milliSeconds == 60;
+    isAlreadySecond = milliSeconds == 60;
 
     if (isAlreadySecond) {
         seconds += 1
