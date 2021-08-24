@@ -15,17 +15,16 @@ const changeValue = (content, variableName) => {
 }
 
 const runTimer = (lever) => {
-    if (lever == true) {
-        isRunning = setInterval(timer, milliSecondsDuration);
-    } else {
-        resetTimer();
+    if (!lever) {
+        return resetTimer();
     }
+    isRunning = setInterval(timer, milliSecondsDuration);
 }
 
 const resetTimer = () => {
     seconds = 0;
     milliSeconds = 00;
-    changeValue('0', secondsElement);
+    changeValue('0 ', secondsElement);
     changeValue('00', milliSecondsElement)
     clearInterval(isRunning);
     lever = false;
@@ -40,14 +39,21 @@ const timer = () => {
         milliSeconds = 0;
         changeValue(seconds, secondsElement);
     }
-    changeValue(milliSeconds, milliSecondsElement);
+    changeValue(String(milliSeconds).padStart(2, '0'), milliSecondsElement);
 }
 
-document.addEventListener('keyup', (e) => {
-    const isSpaceBarPressed = e.keyCode == 32;
+let timerLever = () => {
+    isPressed = !isPressed
+    runTimer(isPressed);
+}
 
-    if (isSpaceBarPressed) {
-        isPressed = !isPressed
-        runTimer(isPressed);
+
+document.addEventListener('keyup', (event) => {
+    if (event.code == 'Space') {
+        timerLever()
     }
-}) 
+})
+
+document.addEventListener('click', () => {
+    timerLever()
+})
