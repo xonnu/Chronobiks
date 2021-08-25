@@ -3,31 +3,45 @@ let seconds = 0;
 let milliSeconds = 1;
 let isAlreadySecond = null;
 let isPressed = false;
-let milliSecondsDuration = 100;
+let milliSecondsDuration = 20;
 let localStorageName = 'chrono-rubiks-timer-2021';
+let timeSolved = 0;
+let changeColorVariable = null;
 
-localStorage.setItem(localStorageName, '');
-
+const timeSolvedElement = document.querySelector('#timeSolved')
 const milliSecondsElement = document.querySelector('#ms');
 const secondsElement = document.querySelector('#seconds')
+const timerElement = document.querySelector('#timer');
 
 const changeValue = (content, variableName) => {
     return variableName.textContent = content;
 }
 
+const changeColor = (textColor, variableName) => {
+    return variableName.style.color = textColor
+}
+
+const AddZeroFirstCharacter = (value) => {
+    return String(value).padStart(2, '0')
+}
+
 const runTimer = (lever) => {
-    if (!lever) {
-        return resetTimer();
-    }
-    isRunning = setInterval(timer, milliSecondsDuration);
+    return !lever ? resetTimer() : isRunning = setInterval(timer, milliSecondsDuration);
+}
+
+let timerLever = () => {
+    isPressed = !isPressed
+    runTimer(isPressed);
 }
 
 const resetTimer = () => {
     lever = false;
+    timeSolved = seconds + '.' + milliSeconds;
     seconds = 0;
     milliSeconds = 00;
     clearInterval(isRunning);
-    changeValue('0 ', secondsElement);
+    changeValue(timeSolved, timeSolvedElement)
+    changeValue('00', secondsElement);
     changeValue('00', milliSecondsElement)
 }
 
@@ -38,22 +52,25 @@ const timer = () => {
     if (isAlreadySecond) {
         seconds += 1
         milliSeconds = 0;
-        changeValue(seconds, secondsElement);
+        changeValue(AddZeroFirstCharacter(seconds), secondsElement);
     }
-    changeValue(String(milliSeconds).padStart(2, '0'), milliSecondsElement);
-}
 
-let timerLever = () => {
-    isPressed = !isPressed
-    runTimer(isPressed);
+    changeValue(AddZeroFirstCharacter(milliSeconds), milliSecondsElement);
 }
-
 
 document.addEventListener('keyup', (event) => {
     if (event.code == 'Space') {
+        changeColor('black', timerElement)
         timerLever()
     }
 })
+
+document.addEventListener('keydown', (event) => {
+    if (event.code == 'Space') {
+        changeColor('green', timerElement)
+    }
+})
+
 
 document.addEventListener('click', () => {
     timerLever()
