@@ -7,6 +7,9 @@ let milliSecondsDuration = 20;
 let localStorageName = 'chrono-rubiks-timer-2021';
 let timeSolved = 0;
 let changeColorVariable = null;
+let currentDate = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
+let solvedTimeList = {};
+let timeListDataStorageCount = 0;
 
 const timeSolvedElement = document.querySelector('#timeSolved')
 const milliSecondsElement = document.querySelector('#ms');
@@ -34,9 +37,41 @@ let timerLever = () => {
     runTimer(isPressed);
 }
 
+let getTimeList = (storageName) =>  {
+	return localStorage.getItem(storageName);
+}
+
+const defaultTimeListData = [{
+    "id": 1,
+    "time": timeSolved,
+    "date": currentDate
+}]
+
+let getOldTimeListData = JSON.parse(getTimeList(localStorageName)) || '';
+let timeListDataStorage = [...getOldTimeListData];
+let solvedTimeID = 0
+for (let i = 0; i < getOldTimeListData.length; i++) {
+    solvedTimeID += 1;
+    getOldTimeListData[i].id = solvedTimeID;
+}
+let addTimeList = () => {
+	timeListDataStorageCount = timeListDataStorage.length;
+	solvedTimeList['id'] = timeListDataStorageCount += 1;
+    solvedTimeList['time'] = timeSolved;
+    solvedTimeList['date'] = currentDate;
+
+ 
+
+    // Add new data to todoStorage array
+	timeListDataStorage.push(solvedTimeList);
+	// Add this new data to storage browser
+	localStorage.setItem(localStorageName, JSON.stringify(timeListDataStorage));
+}
+
 const resetTimer = () => {
     lever = false;
     timeSolved = seconds + '.' + milliSeconds;
+    addTimeList();
     seconds = 0;
     milliSeconds = 00;
     clearInterval(isRunning);
@@ -75,3 +110,4 @@ document.addEventListener('keydown', (event) => {
 document.addEventListener('click', () => {
     timerLever()
 })
+
