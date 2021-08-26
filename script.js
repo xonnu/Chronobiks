@@ -1,3 +1,10 @@
+/**
+ * 
+ *  Developed by Justin Pascual - 2021
+ *  Contact: https://fb.me/heychrono
+ *  
+ */
+
 let isRunning = null;
 let seconds = 0;
 let milliSeconds = 1;
@@ -8,8 +15,7 @@ let localStorageName = 'chrono-rubiks-timer-2021';
 let timeSolved = 0;
 let changeColorVariable = null;
 let currentDate = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
-let solvedTimeList = {};
-let timeListDataStorageCount = 0;
+
 
 const timeSolvedElement = document.querySelector('#timeSolved')
 const milliSecondsElement = document.querySelector('#ms');
@@ -37,8 +43,8 @@ let timerLever = () => {
     runTimer(isPressed);
 }
 
-let getTimeList = (storageName) =>  {
-	return localStorage.getItem(storageName);
+let getTimeList = (storageName) => {
+    return localStorage.getItem(storageName);
 }
 
 const defaultTimeListData = [{
@@ -49,23 +55,26 @@ const defaultTimeListData = [{
 
 let getOldTimeListData = JSON.parse(getTimeList(localStorageName)) || '';
 let timeListDataStorage = [...getOldTimeListData];
+
+// order id when browser is closed.
 let solvedTimeID = 0
 for (let i = 0; i < getOldTimeListData.length; i++) {
     solvedTimeID += 1;
     getOldTimeListData[i].id = solvedTimeID;
 }
+
 let addTimeList = () => {
-	timeListDataStorageCount = timeListDataStorage.length;
-	solvedTimeList['id'] = timeListDataStorageCount += 1;
+    let solvedTimeList = {};
+    let timeListDataStorageCount = timeListDataStorage.length;;
+
+    solvedTimeList['id'] = timeListDataStorageCount += 1;
     solvedTimeList['time'] = timeSolved;
     solvedTimeList['date'] = currentDate;
 
- 
-
-    // Add new data to todoStorage array
-	timeListDataStorage.push(solvedTimeList);
-	// Add this new data to storage browser
-	localStorage.setItem(localStorageName, JSON.stringify(timeListDataStorage));
+    // Add new data to timeListData array
+    timeListDataStorage.push(solvedTimeList);
+    // Add new data to localStorage
+    localStorage.setItem(localStorageName, JSON.stringify(timeListDataStorage));
 }
 
 const resetTimer = () => {
@@ -110,4 +119,3 @@ document.addEventListener('keydown', (event) => {
 document.addEventListener('click', () => {
     timerLever()
 })
-
