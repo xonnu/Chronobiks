@@ -21,6 +21,7 @@ const timeSolvedElement = document.querySelector('#timeSolved')
 const milliSecondsElement = document.querySelector('#ms');
 const secondsElement = document.querySelector('#seconds')
 const timerElement = document.querySelector('#timer');
+const runButtonElement = document.querySelector('#runTimer');
 
 const changeValue = (content, variableName) => {
     return variableName.textContent = content;
@@ -123,22 +124,22 @@ document.addEventListener('click', (e) => {
     timerLever()
 })
 
+runButtonElement.addEventListener('click', () => {
+
+})
 
 const app = new Vue({
     el: '#app',
     data: {
-        listTime: '',
-        listDate: '',
         timeListFromStorage: JSON.parse(getTimeList(localStorageName)) || defaultTimeListData
     },
     methods: {
-        addTimeToList: () => {
-            alert(1)
-            // this.timeListFromStorage = JSON.parse(getTimeList(localStorageName));
-            // addTimeList();
+        addTimeToList: function () {
+            if (isPressed) return this.timeListFromStorage = timeListDataStorage;
         },
-        timeListReset: () => {
-            // localStorage.clear(localStorageName)
+        timeListReset: function () {
+            this.timeListFromStorage = defaultTimeListData
+            localStorage.clear(localStorageName)
         }
     }
 })
