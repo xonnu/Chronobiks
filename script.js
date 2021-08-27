@@ -49,7 +49,7 @@ let getTimeList = (storageName) => {
 
 const defaultTimeListData = [{
     "id": 1,
-    "time": timeSolved,
+    "time": "Welcome to Chronobiks",
     "date": currentDate
 }]
 
@@ -84,7 +84,6 @@ const resetTimer = () => {
     seconds = 0;
     milliSeconds = 00;
     clearInterval(isRunning);
-    changeValue(timeSolved, timeSolvedElement)
     changeValue('00', secondsElement);
     changeValue('00', milliSecondsElement)
 }
@@ -115,7 +114,31 @@ document.addEventListener('keydown', (event) => {
     }
 })
 
+document.addEventListener('click', (e) => {
+    if (e.target.closest('#resetButton')) {
+        app.$data.timeListFromStorage = defaultTimeListData;
+        return;
+    }
 
-document.addEventListener('click', () => {
     timerLever()
+})
+
+
+const app = new Vue({
+    el: '#app',
+    data: {
+        listTime: '',
+        listDate: '',
+        timeListFromStorage: JSON.parse(getTimeList(localStorageName)) || defaultTimeListData
+    },
+    methods: {
+        addTimeToList: () => {
+            alert(1)
+            // this.timeListFromStorage = JSON.parse(getTimeList(localStorageName));
+            // addTimeList();
+        },
+        timeListReset: () => {
+            // localStorage.clear(localStorageName)
+        }
+    }
 })
