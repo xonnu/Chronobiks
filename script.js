@@ -5,20 +5,19 @@
  *  
  */
 
-let isRunning = null;
 let seconds = 0;
-let milliSeconds = 1;
-let isAlreadySecond = null;
-let isPressed = false;
-let milliSecondsDuration = 20;
-let localStorageName = 'chrono-rubiks-timer-2021';
 let timeSolved = 0;
+let milliSeconds = 1;
+let isRunning = null;
+let isPressed = false;
+let isAlreadySecond = null;
+let milliSecondsDuration = 20;
 let changeColorVariable = null;
+let localStorageName = 'chronobiks-2021';
 let currentDate = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
 
-
 const timeSolvedElement = document.querySelector('#timeSolved')
-const milliSecondsElement = document.querySelector('#ms');
+const milliSecondsElement = document.querySelector('#milliSeconds');
 const secondsElement = document.querySelector('#seconds')
 const timerElement = document.querySelector('#timer');
 const runButtonElement = document.querySelector('#runTimer');
@@ -49,15 +48,15 @@ let getTimeList = (storageName) => {
 }
 
 const defaultTimeListData = [{
-    "id": 1,
-    "time": "Welcome to Chronobiks",
+    "id": 0,
+    "time": "Hello, welcome to Chronobiks",
     "date": currentDate
 }]
 
-let getOldTimeListData = JSON.parse(getTimeList(localStorageName)) || '';
+let getOldTimeListData = JSON.parse(getTimeList(localStorageName)) || defaultTimeListData;
 let timeListDataStorage = [...getOldTimeListData];
 
-// order id when browser is closed.
+// order id of the time list when browser is closed.
 let solvedTimeID = 0
 for (let i = 0; i < getOldTimeListData.length; i++) {
     solvedTimeID += 1;
@@ -66,7 +65,7 @@ for (let i = 0; i < getOldTimeListData.length; i++) {
 
 let addTimeList = () => {
     let solvedTimeList = {};
-    let timeListDataStorageCount = timeListDataStorage.length;;
+    let timeListDataStorageCount = timeListDataStorage.length;
 
     solvedTimeList['id'] = timeListDataStorageCount += 1;
     solvedTimeList['time'] = timeSolved;
@@ -80,10 +79,10 @@ let addTimeList = () => {
 
 const resetTimer = () => {
     lever = false;
-    timeSolved = seconds + '.' + milliSeconds;
+    timeSolved = `${seconds}.${milliSeconds}`;
     addTimeList();
     seconds = 0;
-    milliSeconds = 00;
+    milliSeconds = 0;
     clearInterval(isRunning);
     changeValue('00', secondsElement);
     changeValue('00', milliSecondsElement)
@@ -106,13 +105,12 @@ document.addEventListener('keyup', (event) => {
     if (event.code == 'Space') {
         changeColor('black', timerElement)
         timerLever()
+        app.$data.timeListFromStorage = timeListDataStorage
     }
 })
 
 document.addEventListener('keydown', (event) => {
-    if (event.code == 'Space') {
-        changeColor('green', timerElement)
-    }
+    if (event.code == 'Space') return changeColor('green', timerElement);
 })
 
 document.addEventListener('click', (e) => {
@@ -120,12 +118,7 @@ document.addEventListener('click', (e) => {
         app.$data.timeListFromStorage = defaultTimeListData;
         return;
     }
-
     timerLever()
-})
-
-runButtonElement.addEventListener('click', () => {
-
 })
 
 const app = new Vue({
