@@ -34,6 +34,11 @@ const AddZeroFirstCharacter = (value) => {
     return String(value).padStart(2, '0')
 }
 
+const htmlEntities = (inputValue) => {
+    return String(inputValue).replace(/&/g, '&amp;').replace(/</g, '').replace(/>/g, '').replace(/"/g, '');
+}
+
+// Run timer by Lever
 const runTimer = (lever) => {
     return !lever ? resetTimer() : isRunning = setInterval(timer, milliSecondsDuration);
 }
@@ -49,11 +54,17 @@ let getTimeList = (storageName) => {
 
 const defaultTimeListData = [{
     "id": 0,
-    "time": "Hello, welcome to Chronobiks",
+    "time": "Hi, welcome to Chronobiks!",
     "date": currentDate
 }]
 
-let getOldTimeListData = JSON.parse(getTimeList(localStorageName)) || defaultTimeListData;
+const resetTimeListData = [{
+    "id": 0,
+    "time": "Your data has been reset.",
+    "date": currentDate
+}]
+
+let getOldTimeListData = JSON.parse(getTimeList(localStorageName)) || '';
 let timeListDataStorage = [...getOldTimeListData];
 
 // order id of the time list when browser is closed.
@@ -68,8 +79,8 @@ let addTimeList = () => {
     let timeListDataStorageCount = timeListDataStorage.length;
 
     solvedTimeList['id'] = timeListDataStorageCount += 1;
-    solvedTimeList['time'] = timeSolved;
-    solvedTimeList['date'] = currentDate;
+    solvedTimeList['time'] = htmlEntities(timeSolved);
+    solvedTimeList['date'] = htmlEntities(currentDate);
 
     // Add new data to timeListData array
     timeListDataStorage.push(solvedTimeList);
@@ -85,7 +96,7 @@ const resetTimer = () => {
     milliSeconds = 0;
     clearInterval(isRunning);
     changeValue('00', secondsElement);
-    changeValue('00', milliSecondsElement)
+    changeValue('00', milliSecondsElement);
 }
 
 const timer = () => {
@@ -104,22 +115,30 @@ const timer = () => {
 document.addEventListener('keyup', (event) => {
     if (event.code == 'Space') {
         changeColor('black', timerElement)
+
         timerLever()
         app.$data.timeListFromStorage = timeListDataStorage
     }
 })
 
 document.addEventListener('keydown', (event) => {
-    if (event.code == 'Space') return changeColor('green', timerElement);
+    if (event.code == 'Space') {
+        changeColor('green', timerElement)
+    };
 })
 
 document.addEventListener('click', (e) => {
+
     if (e.target.closest('#resetButton')) {
-        app.$data.timeListFromStorage = defaultTimeListData;
+        timeListDataStorage = resetTimeListData;
+        app.$data.timeListFromStorage = resetTimeListData;
         return;
     }
+
     timerLever()
+    app.$data.timeListFromStorage = timeListDataStorage
 })
+
 
 const app = new Vue({
     el: '#app',
@@ -130,9 +149,13 @@ const app = new Vue({
         addTimeToList: function () {
             if (isPressed) return this.timeListFromStorage = timeListDataStorage;
         },
-        timeListReset: function () {
-            this.timeListFromStorage = defaultTimeListData
-            localStorage.clear(localStorageName)
+        timeListReset: function (e) {
+
+            if (e.detail != 0) {
+                console.log('reset clicked')
+                localStorage.setItem(localStorageName, JSON.stringify(resetTimeListData))
+                this.timeListFromStorage = JSON.parse(getTimeList(localStorageName));
+            }
         }
     }
 })
