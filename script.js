@@ -127,11 +127,12 @@ document.addEventListener('keydown', (event) => {
     };
 })
 
-document.addEventListener('click', (e) => {
+document.addEventListener('click', (event) => {
 
-    if (e.target.closest('#resetButton')) {
-        timeListDataStorage = resetTimeListData;
-        app.$data.timeListFromStorage = resetTimeListData;
+    if (event.target.closest('#resetButton')) {
+        console.log('reset 1')
+        // timeListDataStorage = resetTimeListData;
+        // app.$data.timeListFromStorage = resetTimeListData;
         return;
     }
 
@@ -150,9 +151,10 @@ const app = new Vue({
             if (isPressed) return this.timeListFromStorage = timeListDataStorage;
         },
         timeListReset: function (e) {
-
             if (e.detail != 0) {
-                console.log('reset clicked')
+                console.log('reset 2')
+                timeListDataStorage = resetTimeListData;
+                // this.timeListFromStorage = resetTimeListData;
                 localStorage.setItem(localStorageName, JSON.stringify(resetTimeListData))
                 this.timeListFromStorage = JSON.parse(getTimeList(localStorageName));
             }

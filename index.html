@@ -17,7 +17,7 @@
     <h3>Solved Time List</h3>
 
     <section id="app">
-        <button id="resetButton" @click="timeListReset">reset</button>
+        <button id="resetButton" @click="timeListReset" onclick="this.blur()">reset</button>
         {{ timeListFromStorage }}
         <template v-if="timeListFromStorage != []">
             <ul>
