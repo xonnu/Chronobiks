@@ -73,7 +73,7 @@ let addTimeList = () => {
     let timeListDataStorageCount = timeListDataStorage.length;
 
     solvedTimeList['id'] = timeListDataStorageCount += 1;
-    solvedTimeList['time'] = htmlEntities(timeSolved);
+    solvedTimeList['time'] = parseFloat(htmlEntities(timeSolved));
     solvedTimeList['date'] = htmlEntities(currentDate);
 
     timeListDataStorage.push(solvedTimeList);
@@ -154,3 +154,12 @@ const app = new Vue({
         }
     }
 })
+
+timeListDataStorage.forEach(list => {
+    let list_of_time = list.time;
+    if(!isNaN(list_of_time)) {
+        console.log(list_of_time)
+    }
+});
+
+console.log(timeListDataStorage)
