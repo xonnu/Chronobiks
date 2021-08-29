@@ -58,12 +58,6 @@ let getTimeList = (storageName) => {
     return localStorage.getItem(storageName);
 }
 
-const defaultTimeListData = [{
-    "id": 0,
-    "time": "Hi, welcome to Chronobiks!",
-    "date": currentDate
-}]
-
 let getOldTimeListData = JSON.parse(getTimeList(localStorageName)) || '';
 let timeListDataStorage = [...getOldTimeListData];
 
@@ -130,6 +124,12 @@ document.addEventListener('click', (event) => {
     timerLever()
     app.$data.timeListFromStorage = timeListDataStorage
 })
+
+const defaultTimeListData = [{
+    "id": 0,
+    "time": "Hi, welcome to Chronobiks!",
+    "date": currentDate
+}]
 
 const app = new Vue({
     el: '#app',
