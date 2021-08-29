@@ -14,7 +14,14 @@ let isAlreadySecond = null;
 let milliSecondsDuration = 20;
 let changeColorVariable = null;
 let localStorageName = 'chronobiks-2021';
-let currentDate = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
+
+const date = new Date()
+const currentMonth = date.toLocaleString('default', {
+    month: 'short'
+});
+const currentDay = date.getUTCDate();
+const currentYear = date.getFullYear();
+const currentDate = `${currentMonth} ${currentDay}, ${currentYear}`;
 
 const timeSolvedElement = document.querySelector('#timeSolved')
 const milliSecondsElement = document.querySelector('#milliSeconds');
@@ -38,7 +45,6 @@ const htmlEntities = (inputValue) => {
     return String(inputValue).replace(/&/g, '&amp;').replace(/</g, '').replace(/>/g, '').replace(/"/g, '');
 }
 
-// Run timer by Lever
 const runTimer = (lever) => {
     return !lever ? resetTimer() : isRunning = setInterval(timer, milliSecondsDuration);
 }
@@ -55,12 +61,6 @@ let getTimeList = (storageName) => {
 const defaultTimeListData = [{
     "id": 0,
     "time": "Hi, welcome to Chronobiks!",
-    "date": currentDate
-}]
-
-const resetTimeListData = [{
-    "id": 0,
-    "time": "Your data has been reset.",
     "date": currentDate
 }]
 
@@ -82,9 +82,7 @@ let addTimeList = () => {
     solvedTimeList['time'] = htmlEntities(timeSolved);
     solvedTimeList['date'] = htmlEntities(currentDate);
 
-    // Add new data to timeListData array
     timeListDataStorage.push(solvedTimeList);
-    // Add new data to localStorage
     localStorage.setItem(localStorageName, JSON.stringify(timeListDataStorage));
 }
 
@@ -128,22 +126,15 @@ document.addEventListener('keydown', (event) => {
 })
 
 document.addEventListener('click', (event) => {
-
-    if (event.target.closest('#resetButton')) {
-        console.log('reset 1')
-        // timeListDataStorage = resetTimeListData;
-        // app.$data.timeListFromStorage = resetTimeListData;
-        return;
-    }
-
+    if (event.target.closest('#resetButton')) return;
     timerLever()
     app.$data.timeListFromStorage = timeListDataStorage
 })
 
-
 const app = new Vue({
     el: '#app',
     data: {
+        currentDate: currentDate,
         timeListFromStorage: JSON.parse(getTimeList(localStorageName)) || defaultTimeListData
     },
     methods: {
@@ -151,13 +142,15 @@ const app = new Vue({
             if (isPressed) return this.timeListFromStorage = timeListDataStorage;
         },
         timeListReset: function (e) {
-            if (e.detail != 0) {
-                console.log('reset 2')
-                timeListDataStorage = resetTimeListData;
-                // this.timeListFromStorage = resetTimeListData;
-                localStorage.setItem(localStorageName, JSON.stringify(resetTimeListData))
-                this.timeListFromStorage = JSON.parse(getTimeList(localStorageName));
-            }
+            const resetTimeListData = [{
+                "id": 1,
+                "time": "Your data has been reset.",
+                "date": currentDate
+            }]
+
+            timeListDataStorage = resetTimeListData;
+            this.timeListFromStorage = resetTimeListData;
+            localStorage.setItem(localStorageName, JSON.stringify(resetTimeListData))
         }
     }
 })

@@ -18,11 +18,13 @@
 
     <section id="app">
         <button id="resetButton" @click="timeListReset" onclick="this.blur()">reset</button>
-        {{ timeListFromStorage }}
+        <!-- {{ timeListFromStorage }} -->
         <template v-if="timeListFromStorage != []">
             <ul>
                 <li v-for="list in timeListFromStorage.slice().reverse()">
-                    {{ list.time }} | {{ list.date }}
+                    {{ list.time }} | 
+                    <template v-if="list.date == currentDate">Today</template>
+                    <template v-else>{{list.date}}</template>
                 </li>
             </ul>
         </template>
