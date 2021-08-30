@@ -11,27 +11,41 @@
 
 <body>
     <h1 id="timer">
-        <span id="seconds">00</span>.<span id="milliSeconds">00</span>
+        <span id="seconds">00</span>.<span id="milliseconds">00</span>
     </h1>
 
     <h3>Solved Time List</h3>
 
     <section id="app">
-        <button id="resetButton" @click="timeListReset" onclick="this.blur()">reset</button>
-        <!-- {{ timeListFromStorage }} -->
-        <template v-if="timeListFromStorage != []">
-            <ul>
-                <li v-for="list in timeListFromStorage.slice().reverse()">
-                    {{ list.time }} | 
-                    <template v-if="list.date == currentDate">Today</template>
-                    <template v-else>{{list.date}}</template>
-                </li>
-            </ul>
-        </template>
-
-        <template v-else>
-            <h4>Welcome to chronobiks</h4>
-        </template>
+        
+        <p>
+            <b>Best</b><br>
+            <template v-if="bestSolvedTimeReactive == Infinity">
+                00.00
+            </template>
+            <template v-else>
+                {{ bestSolvedTimeReactive }}
+            </template>    
+        </p>
+        <p>
+            <b>Worst</b><br>
+            <template v-if="worstSolvedTimeReactive == -Infinity">
+                00.00
+            </template>
+            <template v-else>
+                {{ worstSolvedTimeReactive }}
+            </template>
+        </p>
+        
+        <button id="resetButton" @click="resetTimeList" onclick="this.blur()">reset</button>
+        
+        <ul>
+            <li v-for="list in timeListFromStorage.slice().reverse()">
+                {{ list.time }} | 
+                <template v-if="list.date == currentDateToday">Today</template>
+                <template v-else>{{list.date}}</template>
+            </li>
+        </ul>
     </section>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>

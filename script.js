@@ -7,37 +7,36 @@
 
 let seconds = 0;
 let timeSolved = 0;
-let milliSeconds = 1;
+let milliseconds = 01;
 let isRunning = null;
-let isPressed = false;
+let isRunTriggered = false;
 let isAlreadySecond = null;
-let milliSecondsDuration = 20;
-let changeColorVariable = null;
-let localStorageName = 'chronobiks-2021';
+let millisecondsDuration = 200;
+let storageName = 'chronobiks-2021';
 
-const date = new Date()
-const currentMonth = date.toLocaleString('default', {
+const dateObject = new Date()
+const currentMonth = dateObject.toLocaleString('default', {
     month: 'short'
 });
-const currentDay = date.getUTCDate();
-const currentYear = date.getFullYear();
-const currentDate = `${currentMonth} ${currentDay}, ${currentYear}`;
+const currentDay = dateObject.getUTCDate();
+const currentYear = dateObject.getFullYear();
+const currentDateToday = `${currentMonth} ${currentDay}, ${currentYear}`;
 
 const timeSolvedElement = document.querySelector('#timeSolved')
-const milliSecondsElement = document.querySelector('#milliSeconds');
+const millisecondsElement = document.querySelector('#milliseconds');
 const secondsElement = document.querySelector('#seconds')
 const timerElement = document.querySelector('#timer');
 const runButtonElement = document.querySelector('#runTimer');
 
-const changeValue = (content, variableName) => {
+const changeElementValue = (content, variableName) => {
     return variableName.textContent = content;
 }
 
-const changeColor = (textColor, variableName) => {
+const changeElementColor = (textColor, variableName) => {
     return variableName.style.color = textColor
 }
 
-const AddZeroFirstCharacter = (value) => {
+const addZeroFirstCharacterString = (value) => {
     return String(value).padStart(2, '0')
 }
 
@@ -45,121 +44,143 @@ const htmlEntities = (inputValue) => {
     return String(inputValue).replace(/&/g, '&amp;').replace(/</g, '').replace(/>/g, '').replace(/"/g, '');
 }
 
-const runTimer = (lever) => {
-    return !lever ? resetTimer() : isRunning = setInterval(timer, milliSecondsDuration);
+const startTimer = (lever) => {
+    return !lever ? resetTimerElement() : isRunning = setInterval(updateTimerElement, millisecondsDuration);
 }
 
-let timerLever = () => {
-    isPressed = !isPressed
-    runTimer(isPressed);
+let timerTrigger = () => {
+    isRunTriggered = !isRunTriggered
+    startTimer(isRunTriggered);
 }
 
-let getTimeList = (storageName) => {
+let getLocalStorageData = (storageName) => {
     return localStorage.getItem(storageName);
 }
 
-let getOldTimeListData = JSON.parse(getTimeList(localStorageName)) || '';
-let timeListDataStorage = [...getOldTimeListData];
+let oldTimeListData = JSON.parse(getLocalStorageData(storageName)) || '';
+let timeListDataStorage = [...oldTimeListData];
 
 // order id of the time list when browser is closed.
-let solvedTimeID = 0
-for (let i = 0; i < getOldTimeListData.length; i++) {
-    solvedTimeID += 1;
-    getOldTimeListData[i].id = solvedTimeID;
+let timeListID = 0
+for (let i = 0; i < oldTimeListData.length; i++) {
+    timeListID += 1;
+    oldTimeListData[i].id = timeListID;
 }
 
-let addTimeList = () => {
+
+
+let timePerformance = (performance) => {
+    let timeListArray = [];
+
+    timeListDataStorage.forEach(list => {
+        if(!isNaN(list.time)) timeListArray.push(list.time);   
+    });
+    
+    
+    if(performance == 'best') {
+        return Math.min(...timeListArray)
+    }
+    return Math.max(...timeListArray)
+}
+
+let addTimeToList = () => {
     let solvedTimeList = {};
     let timeListDataStorageCount = timeListDataStorage.length;
+    
+    let timeSplit = timeSolved.split('.')
+    
+    if(timeSplit[1].length == 1) {
+        timeSolved = `${timeSplit[0]}.0${timeSplit[1]}`;
+    }
 
     solvedTimeList['id'] = timeListDataStorageCount += 1;
-    solvedTimeList['time'] = parseFloat(htmlEntities(timeSolved));
-    solvedTimeList['date'] = htmlEntities(currentDate);
-
+    solvedTimeList['time'] = parseFloat(htmlEntities(timeSolved))
+    solvedTimeList['date'] = htmlEntities(currentDateToday);
+    
     timeListDataStorage.push(solvedTimeList);
-    localStorage.setItem(localStorageName, JSON.stringify(timeListDataStorage));
+    localStorage.setItem(storageName, JSON.stringify(timeListDataStorage));
 }
 
-const resetTimer = () => {
+const resetTimerElement = () => {
     lever = false;
-    timeSolved = `${seconds}.${milliSeconds}`;
-    addTimeList();
+    timeSolved = `${seconds}.${milliseconds}`;
+    addTimeToList();
     seconds = 0;
-    milliSeconds = 0;
+    milliseconds = 0;
     clearInterval(isRunning);
-    changeValue('00', secondsElement);
-    changeValue('00', milliSecondsElement);
+    changeElementValue('00', secondsElement);
+    changeElementValue('00', millisecondsElement);
 }
 
-const timer = () => {
-    milliSeconds++;
-    isAlreadySecond = milliSeconds == 60;
+const updateTimerElement = () => {
+    milliseconds++;
+    isAlreadySecond = milliseconds == 60;
 
     if (isAlreadySecond) {
         seconds += 1
-        milliSeconds = 0;
-        changeValue(AddZeroFirstCharacter(seconds), secondsElement);
+        milliseconds = 00;
+        changeElementValue(addZeroFirstCharacterString(seconds), secondsElement);
     }
 
-    changeValue(AddZeroFirstCharacter(milliSeconds), milliSecondsElement);
+    changeElementValue(addZeroFirstCharacterString(milliseconds), millisecondsElement);
 }
 
-document.addEventListener('keyup', (event) => {
-    if (event.code == 'Space') {
-        changeColor('black', timerElement)
-
-        timerLever()
-        app.$data.timeListFromStorage = timeListDataStorage
-    }
-})
-
-document.addEventListener('keydown', (event) => {
-    if (event.code == 'Space') {
-        changeColor('green', timerElement)
-    };
-})
-
-document.addEventListener('click', (event) => {
-    if (event.target.closest('#resetButton')) return;
-    timerLever()
+const updateAll = () => {
+    timerTrigger()
     app.$data.timeListFromStorage = timeListDataStorage
-})
+    app.$data.bestSolvedTimeReactive = timePerformance('best')
+    app.$data.worstSolvedTimeReactive = timePerformance('worst')
+}
+const spaceKeyUp = (event) => {
+    if (event.code == 'Space') {
+        changeElementColor('black', timerElement)
+        updateAll()
+    }
+}
+
+const spaceKeyDown =  (event) => {
+    if (event.code == 'Space') changeElementColor('green', timerElement);
+}
+
+const clickTrigger = (event) => {
+    if (event.target.closest('#resetButton')) return;
+    updateAll()
+}
+
+document.addEventListener('keyup', spaceKeyUp)
+document.addEventListener('keydown', spaceKeyDown)
+document.addEventListener('click', clickTrigger)
 
 const defaultTimeListData = [{
     "id": 0,
     "time": "Hi, welcome to Chronobiks!",
-    "date": currentDate
+    "date": currentDateToday
 }]
 
 const app = new Vue({
     el: '#app',
     data: {
-        currentDate: currentDate,
-        timeListFromStorage: JSON.parse(getTimeList(localStorageName)) || defaultTimeListData
+        currentDateToday: currentDateToday, 
+        bestSolvedTimeReactive: timePerformance('best'),
+        worstSolvedTimeReactive: timePerformance('worst'),
+        timeListFromStorage: JSON.parse(getLocalStorageData(storageName)) || defaultTimeListData
     },
     methods: {
-        addTimeToList: function () {
-            if (isPressed) return this.timeListFromStorage = timeListDataStorage;
-        },
-        timeListReset: function (e) {
-            const resetTimeListData = [{
+        resetTimeList: function () {
+            const resetData = [{
                 "id": 1,
                 "time": "Your data has been reset.",
-                "date": currentDate
+                "date": currentDateToday
             }]
 
-            timeListDataStorage = resetTimeListData;
-            this.timeListFromStorage = resetTimeListData;
-            localStorage.setItem(localStorageName, JSON.stringify(resetTimeListData))
+            resetTimerElement();
+            this.bestSolvedTimeReactive = '00.00'
+            this.worstSolvedTimeReactive = '00.00'
+            timeListDataStorage = resetData;
+            this.timeListFromStorage = resetData;
+            localStorage.setItem(storageName, JSON.stringify(resetData))
         }
     }
 })
 
-timeListDataStorage.forEach(list => {
-    let list_of_time = list.time;
-    if(!isNaN(list_of_time)) {
-        console.log(list_of_time)
-    }
-});
 
-console.log(timeListDataStorage)
