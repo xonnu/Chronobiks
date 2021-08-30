@@ -132,7 +132,22 @@ const updateAll = () => {
     app.$data.worstSolvedTimeReactive = timePerformance('worst')
 }
 
-let isEnable = false;
+let isSpaceDown = false;
+let lastKeyUpAt = 0
+const spaceKeyDown =  (event) => {
+    if (event.code == 'Space') {
+        let keyDownAt = new Date();
+        changeElementColor('green', timerElement)
+
+        setTimeout(() => {
+            if(+keyDownAt > +lastKeyUpAt) {
+                document.addEventListener('keyup', spaceKeyUp)
+            } else {
+                return false;
+            }
+        }, 1000);
+    };
+}
 
 const spaceKeyUp = (event) => {
     if (event.code == 'Space') {
@@ -141,19 +156,13 @@ const spaceKeyUp = (event) => {
     }
 }
 
-const spaceKeyDown =  (event) => {
-    if (event.code == 'Space') {
-        changeElementColor('green', timerElement)
-    }
-}
-
 const clickTrigger = (event) => {
     if (event.target.closest('#resetButton')) return;
     updateAll()
 }
 
+
 document.addEventListener('keydown', spaceKeyDown)
-document.addEventListener('keyup', spaceKeyUp)
 document.addEventListener('click', clickTrigger)
 
 const defaultTimeListData = [{
