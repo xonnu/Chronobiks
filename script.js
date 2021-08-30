@@ -11,7 +11,7 @@ let milliseconds = 01;
 let isRunning = null;
 let isRunTriggered = false;
 let isAlreadySecond = null;
-let millisecondsDuration = 200;
+let millisecondsDuration = 20;
 let storageName = 'chronobiks-2021';
 
 const dateObject = new Date()
