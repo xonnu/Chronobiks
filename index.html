@@ -17,7 +17,9 @@
     <h3>Solved Time List</h3>
 
     <section id="app">
-        
+        <p><b>Newest solved time</b><br>
+            {{timeListFromStorage.slice().reverse()[0].time}}
+        </p>
         <p>
             <b>Best</b><br>
             <template v-if="bestSolvedTimeReactive == Infinity">
