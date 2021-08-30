@@ -131,6 +131,9 @@ const updateAll = () => {
     app.$data.bestSolvedTimeReactive = timePerformance('best')
     app.$data.worstSolvedTimeReactive = timePerformance('worst')
 }
+
+let isEnable = false;
+
 const spaceKeyUp = (event) => {
     if (event.code == 'Space') {
         changeElementColor('black', timerElement)
@@ -139,7 +142,9 @@ const spaceKeyUp = (event) => {
 }
 
 const spaceKeyDown =  (event) => {
-    if (event.code == 'Space') changeElementColor('green', timerElement);
+    if (event.code == 'Space') {
+        changeElementColor('green', timerElement)
+    }
 }
 
 const clickTrigger = (event) => {
@@ -147,8 +152,8 @@ const clickTrigger = (event) => {
     updateAll()
 }
 
-document.addEventListener('keyup', spaceKeyUp)
 document.addEventListener('keydown', spaceKeyDown)
+document.addEventListener('keyup', spaceKeyUp)
 document.addEventListener('click', clickTrigger)
 
 const defaultTimeListData = [{

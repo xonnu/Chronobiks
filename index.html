@@ -14,7 +14,7 @@
         <span id="seconds">00</span>.<span id="milliseconds">00</span>
     </h1>
 
-    <h3>Solved Time List</h3>
+    
 
     <section id="app">
         <p><b>Newest solved time</b><br>
@@ -40,6 +40,8 @@
         </p>
         
         <button id="resetButton" @click="resetTimeList" onclick="this.blur()">reset</button>
+        
+        <h3>Solved Time List</h3>
         
         <ul>
             <li v-for="list in timeListFromStorage.slice().reverse()">
