@@ -177,23 +177,14 @@ const mouseClickRelease = () => {
 }
 
 const touchDown = (event) => {
+    if (event.repeat) return;
     if (event.target.closest('#resetButton')) return;
-    alert(event.touches.length)
-    // var keyDownAt = new Date();
 
-    // if (isTriggered == true) {
-    //     isTriggered = false;
-    //     updateAll();
-    // } else {
-    //     setTimeout(() => {
-    //         if (+keyDownAt > +lastKeyUpAt) {
-    //             changeElementColor('green', timerElement)
-    //             isTriggered = true
-    //         } else {
-    //             isTriggered = false;
-    //         }
-    //     }, holdDuration);
-    // }
+    if(event.touches.length === 1) {
+        pressVerify();  
+    }
+    
+    return; 
 }
 
 const touchRelease = (event) => {
