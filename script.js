@@ -167,10 +167,7 @@ const spaceKeyUp = (event) => {
 
 const mouseClickDown = (event) => {
     if (event.target.closest('#resetButton')) return;
-    if(event.touches.length === 1) {
-        pressVerify();
-    } 
-    
+    pressVerify();
 }
 
 const mouseClickRelease = () => {
@@ -179,12 +176,25 @@ const mouseClickRelease = () => {
     if (isTriggered == true) return updateAll();
 }
 
+const touchDown = (event) => {
+    if (event.target.closest('#resetButton')) return;
+    if(event.touches.length === 1) {
+        pressVerify();
+    } 
+}
+
+const touchRelease = () => {
+    changeElementColor('black', timerElement)
+    lastKeyUpAt = new Date();
+    if (isTriggered === true) return updateAll();
+}
+
 document.addEventListener('keydown', spaceKeyDown)
 document.addEventListener('keyup', spaceKeyUp)
 document.addEventListener('mousedown', mouseClickDown)
 document.addEventListener('mouseup', mouseClickRelease)
-document.addEventListener('touchstart', mouseClickDown)
-document.addEventListener('touchend', mouseClickRelease)
+document.addEventListener('touchstart', touchDown, false)
+document.addEventListener('touchend', touchRelease, false)
 
 const defaultTimeListData = [{
     "id": 0,
