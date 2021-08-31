@@ -167,7 +167,7 @@ const spaceKeyUp = (event) => {
 
 const mouseClickDown = (event) => {
     if (event.target.closest('#resetButton')) return;
-    if(event.touches.length > 1) return alert('only one needed');
+    if(event.touches.length != 1) return; 
     pressVerify();
 }
 
