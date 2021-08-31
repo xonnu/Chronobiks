@@ -180,10 +180,9 @@ const touchDown = (event) => {
     if (event.repeat) return;
     if (event.target.closest('#resetButton')) return;
 
-    if(event.touches.length === 1) {
+    if(event.touches.length == 1) {
         pressVerify();  
     }
-    
     return; 
 }
 
@@ -193,6 +192,7 @@ const touchRelease = (event) => {
     if (isTriggered === true) return updateAll();
 }
 
+// Triggers
 document.addEventListener('keydown', spaceKeyDown)
 document.addEventListener('keyup', spaceKeyUp)
 document.addEventListener('mousedown', mouseClickDown)
