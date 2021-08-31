@@ -15,6 +15,7 @@
         <span id="seconds">00</span>.<span id="milliseconds">00</span>
     </h1>
 
+    <p>Hold space key or click/touch to run timer.</p>
     <section id="app">
         <p><b>Newest solved time</b><br>
             {{timeListFromStorage.slice().reverse()[0].time}}
@@ -50,6 +51,8 @@
             </li>
         </ul>
     </section>
+
+    <a href="https://github.com/heychrono/Rubiks-Timer/" target="_blank">Github Repository</a>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script src="script.js"></script>
