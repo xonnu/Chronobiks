@@ -180,6 +180,8 @@ document.addEventListener('keydown', spaceKeyDown)
 document.addEventListener('keyup', spaceKeyUp)
 document.addEventListener('mousedown', mouseClickDown)
 document.addEventListener('mouseup', mouseClickRelease)
+document.addEventListener('touchstart', mouseClickDown)
+document.addEventListener('touchend', mouseClickRelease)
 
 const defaultTimeListData = [{
     "id": 0,

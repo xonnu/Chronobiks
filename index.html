@@ -42,7 +42,7 @@
         
         <h3>Solved Time List</h3>
 
-        <ul style="pointer-events:  none;">
+        <ul>
             <li v-for="list in timeListFromStorage.slice().reverse()">
                 {{ list.time }} | 
                 <template v-if="list.date == currentDateToday">Today</template>
