@@ -76,7 +76,6 @@ let timePerformance = (performance) => {
         if(!isNaN(list.time)) timeListArray.push(list.time);   
     });
     
-    
     if(performance == 'best') {
         return Math.min(...timeListArray)
     }
@@ -132,27 +131,47 @@ const updateAll = () => {
     app.$data.worstSolvedTimeReactive = timePerformance('worst')
 }
 
-let isSpaceDown = false;
-let lastKeyUpAt = 0
-const spaceKeyDown =  (event) => {
-    if (event.code == 'Space') {
-        let keyDownAt = new Date();
-        changeElementColor('green', timerElement)
+var lastKeyUpAt = 0;
+var isSpacePressed = false;
 
-        setTimeout(() => {
-            if(+keyDownAt > +lastKeyUpAt) {
-                document.addEventListener('keyup', spaceKeyUp)
-            } else {
-                return false;
-            }
-        }, 1000);
-    };
+const spaceKeyDown =  (event) => {
+    if(event.repeat) {
+        return
+    }
+
+    if (event.code == 'Space') {
+        var keyDownAt = new Date(); 
+
+        console.log(isSpacePressed)
+
+        if(isSpacePressed == true) {
+            isSpacePressed = false;
+            updateAll();
+        } else {
+            setTimeout(() => {
+                if(+keyDownAt > +lastKeyUpAt) {
+                    changeElementColor('green', timerElement)
+                    console.log('this key is hold for 1 second!')
+                    isSpacePressed = true
+                } else {
+                    console.log('hey, you need to hold it for 1 second')
+                    isSpacePressed = false;
+                }
+            }, 1000);   
+        }
+
+       
+    }
 }
 
 const spaceKeyUp = (event) => {
     if (event.code == 'Space') {
         changeElementColor('black', timerElement)
-        updateAll()
+        lastKeyUpAt = new Date();
+        if(isSpacePressed == true) {
+            console.log('Timer is running.')
+            updateAll()
+        }
     }
 }
 
@@ -161,8 +180,8 @@ const clickTrigger = (event) => {
     updateAll()
 }
 
-
 document.addEventListener('keydown', spaceKeyDown)
+document.addEventListener('keyup', spaceKeyUp)
 document.addEventListener('click', clickTrigger)
 
 const defaultTimeListData = [{
