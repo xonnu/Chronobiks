@@ -10,11 +10,10 @@
 </head>
 
 <body>
+    <pre>This web app is underdevelopment | feel free to contribute</pre>
     <h1 id="timer">
         <span id="seconds">00</span>.<span id="milliseconds">00</span>
     </h1>
-
-    
 
     <section id="app">
         <p><b>Newest solved time</b><br>
@@ -42,8 +41,8 @@
         <button id="resetButton" @click="resetTimeList" onclick="this.blur()">reset</button>
         
         <h3>Solved Time List</h3>
-        
-        <ul>
+
+        <ul style="pointer-events:  none;">
             <li v-for="list in timeListFromStorage.slice().reverse()">
                 {{ list.time }} | 
                 <template v-if="list.date == currentDateToday">Today</template>
