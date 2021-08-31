@@ -178,9 +178,10 @@ const mouseClickRelease = () => {
 
 const touchDown = (event) => {
     if (event.target.closest('#resetButton')) return;
-    if(event.touches.length === 1) {
-        pressVerify();
-    } 
+    if(event.touches.length != 1) {
+        return;
+    }
+    pressVerify(); 
 }
 
 const touchRelease = () => {
