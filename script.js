@@ -73,10 +73,10 @@ let timePerformance = (performance) => {
     let timeListArray = [];
 
     timeListDataStorage.forEach(list => {
-        if(!isNaN(list.time)) timeListArray.push(list.time);   
+        if (!isNaN(list.time)) timeListArray.push(list.time);
     });
-    
-    if(performance == 'best') {
+
+    if (performance == 'best') {
         return Math.min(...timeListArray)
     }
     return Math.max(...timeListArray)
@@ -85,17 +85,17 @@ let timePerformance = (performance) => {
 let addTimeToList = () => {
     let solvedTimeList = {};
     let timeListDataStorageCount = timeListDataStorage.length;
-    
+
     let timeSplit = timeSolved.split('.')
-    
-    if(timeSplit[1].length == 1) {
+
+    if (timeSplit[1].length == 1) {
         timeSolved = `${timeSplit[0]}.0${timeSplit[1]}`;
     }
 
     solvedTimeList['id'] = timeListDataStorageCount += 1;
     solvedTimeList['time'] = parseFloat(htmlEntities(timeSolved))
     solvedTimeList['date'] = htmlEntities(currentDateToday);
-    
+
     timeListDataStorage.push(solvedTimeList);
     localStorage.setItem(storageName, JSON.stringify(timeListDataStorage));
 }
@@ -132,57 +132,54 @@ const updateAll = () => {
 }
 
 var lastKeyUpAt = 0;
-var isSpacePressed = false;
+var isTriggered = false;
 
-const spaceKeyDown =  (event) => {
-    if(event.repeat) {
-        return
+const pressVerify = (holdDuration = 1000) => {
+    var keyDownAt = new Date();
+
+    if (isTriggered == true) {
+        isTriggered = false;
+        updateAll();
+    } else {
+        setTimeout(() => {
+            if (+keyDownAt > +lastKeyUpAt) {
+                changeElementColor('green', timerElement)
+                isTriggered = true
+            } else {
+                isTriggered = false;
+            }
+        }, holdDuration);
     }
+}
 
-    if (event.code == 'Space') {
-        var keyDownAt = new Date(); 
-
-        console.log(isSpacePressed)
-
-        if(isSpacePressed == true) {
-            isSpacePressed = false;
-            updateAll();
-        } else {
-            setTimeout(() => {
-                if(+keyDownAt > +lastKeyUpAt) {
-                    changeElementColor('green', timerElement)
-                    console.log('this key is hold for 1 second!')
-                    isSpacePressed = true
-                } else {
-                    console.log('hey, you need to hold it for 1 second')
-                    isSpacePressed = false;
-                }
-            }, 1000);   
-        }
-
-       
-    }
+const spaceKeyDown = (event) => {
+    if (event.repeat) return;
+    if (event.code == 'Space') return pressVerify();
 }
 
 const spaceKeyUp = (event) => {
     if (event.code == 'Space') {
         changeElementColor('black', timerElement)
         lastKeyUpAt = new Date();
-        if(isSpacePressed == true) {
-            console.log('Timer is running.')
-            updateAll()
-        }
+        if (isTriggered == true) return updateAll();
     }
 }
 
-const clickTrigger = (event) => {
+const mouseClickDown = (event) => {
     if (event.target.closest('#resetButton')) return;
-    updateAll()
+    pressVerify();
+}
+
+const mouseClickRelease = () => {
+    changeElementColor('black', timerElement)
+    lastKeyUpAt = new Date();
+    if (isTriggered == true) return updateAll();
 }
 
 document.addEventListener('keydown', spaceKeyDown)
 document.addEventListener('keyup', spaceKeyUp)
-document.addEventListener('click', clickTrigger)
+document.addEventListener('mousedown', mouseClickDown)
+document.addEventListener('mouseup', mouseClickRelease)
 
 const defaultTimeListData = [{
     "id": 0,
@@ -193,7 +190,7 @@ const defaultTimeListData = [{
 const app = new Vue({
     el: '#app',
     data: {
-        currentDateToday: currentDateToday, 
+        currentDateToday: currentDateToday,
         bestSolvedTimeReactive: timePerformance('best'),
         worstSolvedTimeReactive: timePerformance('worst'),
         timeListFromStorage: JSON.parse(getLocalStorageData(storageName)) || defaultTimeListData
@@ -215,5 +212,3 @@ const app = new Vue({
         }
     }
 })
-
-
