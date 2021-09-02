@@ -1,0 +1,47 @@
+*,
+*::before,
+*::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-size: 100%;
+}
+
+/* Customer Properties */
+:root {
+    /* text colors */
+    --black-color: #{$black-color};
+    --white-color: #{$white-color};
+    --light-black-1: #{$light-black-1};
+    --light-black-2: #{$light-black-2};
+    --light-black-3: #{$light-black-3};
+    /* item colors */
+    --primary-color: #{$primary-color};
+    --error-color: #{$error-color};
+    --go-color: #{$go-color};
+}
+
+html,
+body {
+    block-size: 100%;
+    inline-size: 100%;
+}
+
+button,
+input,
+textarea {
+    border: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+button,
+a {
+    cursor: pointer;
+}
+
+img {
+    inline-size: 100%;
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Chronobiks </title>
+    <link rel="stylesheet" href="app/build/style/main.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="sidebar--overlay sidebar--overlay--close"></div>
+
+    <nav class="navbar">
+        <div class="navbar__logo">
+            <a href="index.html">
+                <img src="app/dist/assets/chronobiks-logo.svg" alt="Chronobiks vector logo">
+            </a>
+        </div>
+
+        <div class="navbar__menu">
+            <button class="navbar__menu--button" id="open-button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="sidebar">
+        <div class="sidebar__navigation">
+            <div class="sidebar__logo">
+                <img src="app/dist/assets/chronobiks-logo.svg" alt="Chronobiks vector logo">
+            </div>
+
+            <div class="sidebar__close">
+                <button class="sidebar__close--button" id="close-button">
+                    <img src="app/dist/assets/close-icon.svg" alt="">
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="app/dist/script/sidebar.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dynamics.js/1.1.0/dynamics.min.js" integrity="sha512-7jBugwMGpDbqp+jcS1ANgOeW7eui0AjTRoGp5YkBVEAaFeNOQQlb0IU7gyu19fgRoqSiUWYIb+m++RJgUv9P2A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</html>

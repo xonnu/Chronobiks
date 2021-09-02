@@ -1,0 +1,252 @@
+/* fonts */
+/* text colors */
+/* item colors */
+/* set default sizes */
+/* make pixel to rem */
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-size: 100%;
+}
+
+/* Customer Properties */
+:root {
+  /* text colors */
+  --black-color: black;
+  --white-color: white;
+  --light-black-1: #a6a0a0;
+  --light-black-2: #797272;
+  --light-black-3: #c9c9c9;
+  /* item colors */
+  --primary-color: black;
+  --error-color: #ff3333;
+  --go-color: #00ad68;
+}
+
+html,
+body {
+  block-size: 100%;
+  inline-size: 100%;
+}
+
+button,
+input,
+textarea {
+  border: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+button,
+a {
+  cursor: pointer;
+}
+
+img {
+  inline-size: 100%;
+}
+
+body {
+  background-color: var(--white-color);
+}
+
+.navbar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  inline-size: 100%;
+  block-size: 4.375rem;
+  padding: 0 1rem;
+  background-color: var(--white-color);
+}
+
+@media screen and (min-width: 790px) {
+  .navbar {
+    block-size: 5rem;
+    padding: 0 2rem;
+  }
+}
+
+.navbar__logo {
+  margin-right: auto;
+}
+
+.navbar__logo img {
+  -webkit-transition: 250ms inline-size linear;
+  transition: 250ms inline-size linear;
+  inline-size: 10rem;
+  block-size: auto;
+}
+
+@media screen and (min-width: 790px) {
+  .navbar__logo img {
+    inline-size: 12.5rem;
+    block-size: auto;
+  }
+}
+
+.navbar__menu--button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border: 1px solid var(--light-black-3);
+  border-radius: 0.3125rem;
+  background-color: inherit;
+  block-size: 2.75rem;
+  inline-size: 2.75rem;
+}
+
+.navbar__menu--button > span {
+  display: block;
+  background-color: var(--black-color);
+  block-size: 0.1875rem;
+  inline-size: 60%;
+}
+
+.navbar__menu--button > span:nth-child(2) {
+  margin-left: -0.5625rem;
+  inline-size: 40%;
+}
+
+.navbar__menu--button > span:not(:last-child) {
+  margin-bottom: 0.3125rem;
+}
+
+.sidebar {
+  overflow: hidden;
+  display: block;
+  background-color: var(--white-color);
+  -webkit-transition: 300ms all ease-in-out;
+  transition: 300ms all ease-in-out;
+  -webkit-transition-property: opacity, visibility, inline-size;
+  transition-property: opacity, visibility, inline-size;
+  /* default close */
+  visibility: hidden;
+  opacity: 0;
+  inline-size: 0%;
+  block-size: 100vh;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.sidebar--open {
+  opacity: 1;
+  overflow: visible;
+  visibility: visible;
+  block-size: 100vh;
+  pointer-events: all;
+  inline-size: 100%;
+}
+
+@media screen and (min-width: 790px) {
+  .sidebar--open {
+    inline-size: 50%;
+  }
+}
+
+.sidebar--overlay {
+  -webkit-transition: 200ms all ease-in-out;
+  transition: 200ms all ease-in-out;
+  z-index: 1;
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  inline-size: 100%;
+  block-size: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  visibility: visible;
+  opacity: 1;
+}
+
+.sidebar--overlay--close {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sidebar__navigation {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  padding: 1rem;
+  inline-size: 100%;
+}
+
+@media screen and (min-width: 790px) {
+  .sidebar__navigation {
+    padding: 1rem 2rem;
+  }
+}
+
+.sidebar__logo {
+  margin-right: auto;
+}
+
+.sidebar__logo img {
+  inline-size: 9.375rem;
+}
+
+.sidebar__close--button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border: 1px solid var(--light-black-3);
+  border-radius: 0.3125rem;
+  background-color: inherit;
+  block-size: 2.75rem;
+  inline-size: 2.75rem;
+}
+
+.sidebar__close--button img {
+  inline-size: 1.5rem;
+}
+
+/* Hey, future Chrono, try to make it better soon. 2021  */
+/*# sourceMappingURL=main.css.map */

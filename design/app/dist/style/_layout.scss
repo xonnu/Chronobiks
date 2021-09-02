@@ -1,0 +1,159 @@
+body {
+    background-color: var(--white-color);
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+
+    inline-size: 100%;
+    block-size: rem(70);
+    padding: 0 rem(16);
+    background-color: var(--white-color);
+
+    @include device(M) {
+        block-size: rem(80);
+        padding: 0 rem(32);
+    }
+
+    &__logo {
+        margin-right: auto;
+
+        img {
+            transition: 250ms inline-size linear;
+            inline-size: rem(160);
+            block-size: auto;
+
+            @include device(M) {
+                inline-size: rem(200);
+                block-size: auto;
+            }
+        }
+    }
+
+    &__menu {
+        &--button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            border: 1px solid var(--light-black-3);
+            border-radius: rem(5);
+            background-color: inherit;
+            block-size: rem(44);
+            inline-size: rem(44);
+
+            >span {
+                display: block;
+                background-color: var(--black-color);
+                block-size: rem(3);
+                inline-size: 60%;
+
+                &:nth-child(2) {
+                    margin-left: rem(-9);
+                    inline-size: 40%;
+                }
+
+                &:not(:last-child) {
+                    margin-bottom: rem(5);
+                }
+            }
+        }
+    }
+}
+
+.sidebar {
+    overflow: hidden;
+    display: block;
+    background-color: var(--white-color);
+    transition: 300ms all ease-in-out;
+    transition-property: opacity, visibility, inline-size;
+    /* default close */
+    visibility: hidden;
+    opacity: 0;
+    inline-size: 0%;
+    block-size: 100vh;
+    pointer-events: none;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+
+    &--open {
+        opacity: 1;
+        overflow: visible;
+        visibility: visible;
+        block-size: 100vh;
+        pointer-events: all;
+        inline-size: 100%;
+
+        @include device(M) {
+            inline-size: 50%;
+        }
+    }
+
+    &--overlay {
+        transition: 200ms all ease-in-out;
+        z-index: 1;
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        inline-size: 100%;
+        block-size: 100vh;
+        background-color: rgba(0, 0, 0, 0.8);
+        visibility: visible;
+        opacity: 1;
+
+        &--close {
+            visibility: hidden;
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
+
+    &__navigation {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        padding: rem(16);
+        inline-size: 100%;
+
+        @include device(M) {
+            padding: rem(16) rem(32);
+        }
+    }
+
+    &__logo {
+        margin-right: auto;
+
+        img {
+            inline-size: rem(150);
+        }
+    }
+
+    &__close {
+        &--button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            border: 1px solid var(--light-black-3);
+            border-radius: rem(5);
+            background-color: inherit;
+            block-size: rem(44);
+            inline-size: rem(44);
+
+            img {
+                inline-size: rem(24);
+            }
+        }
+    }
+}
