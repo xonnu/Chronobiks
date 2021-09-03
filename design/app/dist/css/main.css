@@ -21,6 +21,7 @@
   --light-black-1: #a6a0a0;
   --light-black-2: #797272;
   --light-black-3: #c9c9c9;
+  --light-black-4: #f2f2f2;
   /* item colors */
   --primary-color: black;
   --error-color: #ff3333;
@@ -50,6 +51,20 @@ a {
 
 img {
   inline-size: 100%;
+}
+
+:is(h1, h2, h3, h4, h5, h6) {
+  letter-spacing: 1px;
+  font-family: "Red Hat Display", sans-serif;
+}
+
+p {
+  color: var(--light-black-2);
+  font-family: "Rajdhani", sans-serif;
+}
+
+h4 {
+  font-size: 0.9375rem;
 }
 
 body {
@@ -115,17 +130,28 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  border: 1px solid var(--light-black-3);
+  border: 1px solid var(--light-black-4);
   border-radius: 0.3125rem;
   background-color: inherit;
   block-size: 2.75rem;
   inline-size: 2.75rem;
+  -webkit-transition: background-color 200ms linear;
+  transition: background-color 200ms linear;
+}
+
+.navbar__menu--button:hover {
+  background-color: var(--light-black-4);
+}
+
+.navbar__menu--button:active {
+  background-color: var(--light-black-3);
 }
 
 .navbar__menu--button > span {
   display: block;
+  border-radius: 0.625rem;
   background-color: var(--black-color);
-  block-size: 0.1875rem;
+  block-size: 0.125rem;
   inline-size: 60%;
 }
 
@@ -144,6 +170,8 @@ body {
   background-color: var(--white-color);
   -webkit-transition: 300ms all ease-in-out;
   transition: 300ms all ease-in-out;
+  -webkit-transition-delay: 100ms;
+          transition-delay: 100ms;
   -webkit-transition-property: opacity, visibility, inline-size;
   transition-property: opacity, visibility, inline-size;
   /* default close */
@@ -156,15 +184,22 @@ body {
   top: 0;
   right: 0;
   z-index: 2;
+  padding: 1rem;
+}
+
+@media screen and (min-width: 790px) {
+  .sidebar {
+    padding: 1rem 2rem;
+  }
 }
 
 .sidebar--open {
   opacity: 1;
-  overflow: visible;
+  overflow: auto;
   visibility: visible;
   block-size: 100vh;
-  pointer-events: all;
   inline-size: 100%;
+  pointer-events: all;
 }
 
 @media screen and (min-width: 790px) {
@@ -205,14 +240,7 @@ body {
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
-  padding: 1rem;
   inline-size: 100%;
-}
-
-@media screen and (min-width: 790px) {
-  .sidebar__navigation {
-    padding: 1rem 2rem;
-  }
 }
 
 .sidebar__logo {
@@ -220,7 +248,14 @@ body {
 }
 
 .sidebar__logo img {
+  visibility: visible;
   inline-size: 9.375rem;
+}
+
+@media screen and (min-width: 790px) {
+  .sidebar__logo img {
+    visibility: hidden;
+  }
 }
 
 .sidebar__close--button {
@@ -237,15 +272,68 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  border: 1px solid var(--light-black-3);
   border-radius: 0.3125rem;
   background-color: inherit;
   block-size: 2.75rem;
   inline-size: 2.75rem;
+  -webkit-transition: background-color 200ms linear;
+  transition: background-color 200ms linear;
+}
+
+.sidebar__close--button:hover {
+  background-color: var(--light-black-4);
+}
+
+.sidebar__close--button:active {
+  background-color: var(--light-black-3);
 }
 
 .sidebar__close--button img {
   inline-size: 1.5rem;
+}
+
+.sidebar__timelist {
+  inline-size: 100%;
+  margin: 1.875rem 0;
+}
+
+@media screen and (min-width: 790px) {
+  .sidebar__timelist {
+    margin: 1.5rem 0;
+  }
+}
+
+.sidebar__heading {
+  margin-bottom: 0.3125rem;
+}
+
+.sidebar__timeGroup {
+  margin: 0.625rem 0;
+}
+
+.sidebar__timeInfo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  padding: 0.5rem 0;
+}
+
+.sidebar__timeInfo p {
+  font-weight: 600;
+}
+
+.sidebar__timeInfo > .solved-time {
+  margin-right: auto;
 }
 
 /* Hey, future Chrono, try to make it better soon. 2021  */

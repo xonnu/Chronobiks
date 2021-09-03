@@ -9,20 +9,21 @@ const sidebarOverlay = doc.querySelector('.sidebar--overlay');
 const openSidebar = () => {
     sidebarOverlay.classList.remove('sidebar--overlay--close');
     sidebar.classList.add('sidebar--open')
-    dynamics.animate(sidebar, {
-        opacity: 1
-      }, {
-        type: dynamics.bounce,
-        frequency: 200,
-        friction: 200,
-        duration: 1500
-      })
+    
+    gsap.from(".sample", {
+         y: 50, 
+         duration: .5, 
+         delay: 0.3, 
+         opacity: 0,
+         ease: "expo. out out"
+    })
 };
 
 const closeSidebar = () => {
     sidebarOverlay.classList.add('sidebar--overlay--close');
-    sidebar.classList.remove('sidebar--open')
+    sidebar.classList.remove('sidebar--open');
 };
 
+sidebarOverlay.addEventListener('click', closeSidebar);
 openButton.addEventListener('click', openSidebar);
 closeButton.addEventListener('click', closeSidebar);

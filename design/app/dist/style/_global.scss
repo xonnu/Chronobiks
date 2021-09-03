@@ -15,6 +15,7 @@
     --light-black-1: #{$light-black-1};
     --light-black-2: #{$light-black-2};
     --light-black-3: #{$light-black-3};
+    --light-black-4: #{$light-black-4};
     /* item colors */
     --primary-color: #{$primary-color};
     --error-color: #{$error-color};
@@ -44,4 +45,18 @@ a {
 
 img {
     inline-size: 100%;
+}
+
+:is(h1, h2, h3, h4, h5, h6) {
+    letter-spacing: 1px;
+    font-family: $font-family-1;
+}
+
+p {
+    color: var(--light-black-2);
+    font-family: $font-family-2;
+}
+
+h4 {
+    font-size: rem(15)
 }

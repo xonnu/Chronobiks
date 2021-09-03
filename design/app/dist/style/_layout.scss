@@ -40,16 +40,26 @@ body {
             align-items: center;
             justify-content: center;
 
-            border: 1px solid var(--light-black-3);
+            border: 1px solid var(--light-black-4);
             border-radius: rem(5);
             background-color: inherit;
             block-size: rem(44);
             inline-size: rem(44);
+            transition: background-color 200ms linear;
+
+            &:hover {
+                background-color: var(--light-black-4);
+            }
+
+            &:active {
+                background-color: var(--light-black-3);
+            }
 
             >span {
                 display: block;
+                border-radius: rem(10);
                 background-color: var(--black-color);
-                block-size: rem(3);
+                block-size: rem(2);
                 inline-size: 60%;
 
                 &:nth-child(2) {
@@ -70,6 +80,7 @@ body {
     display: block;
     background-color: var(--white-color);
     transition: 300ms all ease-in-out;
+    transition-delay: 100ms;
     transition-property: opacity, visibility, inline-size;
     /* default close */
     visibility: hidden;
@@ -83,13 +94,19 @@ body {
     right: 0;
     z-index: 2;
 
+    padding: rem(16);
+
+    @include device(M) {
+        padding: rem(16) rem(32);
+    }
+
     &--open {
         opacity: 1;
-        overflow: visible;
+        overflow: auto;
         visibility: visible;
         block-size: 100vh;
-        pointer-events: all;
         inline-size: 100%;
+        pointer-events: all;
 
         @include device(M) {
             inline-size: 50%;
@@ -122,19 +139,19 @@ body {
         align-items: center;
         justify-content: flex-end;
 
-        padding: rem(16);
         inline-size: 100%;
-
-        @include device(M) {
-            padding: rem(16) rem(32);
-        }
     }
 
     &__logo {
         margin-right: auto;
 
         img {
+            visibility: visible;
             inline-size: rem(150);
+
+            @include device(M) {
+                visibility: hidden;
+            }
         }
     }
 
@@ -145,15 +162,56 @@ body {
             align-items: center;
             justify-content: center;
 
-            border: 1px solid var(--light-black-3);
             border-radius: rem(5);
             background-color: inherit;
             block-size: rem(44);
             inline-size: rem(44);
+            transition: background-color 200ms linear;
+
+            &:hover {
+                background-color: var(--light-black-4);
+            }
+
+            &:active {
+                background-color: var(--light-black-3);
+            }
 
             img {
                 inline-size: rem(24);
             }
+        }
+    }
+
+    &__timelist {
+        inline-size: 100%;
+        margin: rem(30) 0;
+
+        @include device(M) {
+            margin: rem(24) 0
+        }
+    }
+
+    &__heading {
+        margin-bottom: rem(5);
+    }
+
+    &__timeGroup {
+        margin: rem(10) 0;
+    }
+
+    &__timeInfo {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        padding: rem(8) 0;
+
+        p {
+            font-weight: 600;
+        }
+
+        >.solved-time {
+            margin-right: auto;
         }
     }
 }
