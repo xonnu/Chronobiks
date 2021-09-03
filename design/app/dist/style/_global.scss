@@ -5,6 +5,8 @@
     margin: 0;
     box-sizing: border-box;
     font-size: 100%;
+    -webkit-tap-highlight-color: transparent;
+    letter-spacing: rem(.5);
 }
 
 /* Customer Properties */
@@ -31,16 +33,40 @@ body {
 button,
 input,
 textarea {
+    font-family: $font-family-1 !important;
+    font: inherit;
     border: 0;
+    font-size: rem(13);
 }
 
 a {
     text-decoration: none;
 }
 
+b {
+    color: var(--black-color);
+}
+
+a,
+p {
+    font-size: rem(13);
+}
+
 button,
 a {
+    font-family: $font-family-1;
     cursor: pointer;
+}
+
+button {
+
+    &:hover {
+        background-color: var(--light-black-4);
+    }
+
+    &:active {
+        background-color: var(--light-black-3);
+    }
 }
 
 img {
@@ -54,7 +80,7 @@ img {
 
 p {
     color: var(--light-black-2);
-    font-family: $font-family-2;
+    font-family: $font-family-1;
 }
 
 h4 {

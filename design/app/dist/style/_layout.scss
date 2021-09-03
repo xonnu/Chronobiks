@@ -1,5 +1,6 @@
 body {
     background-color: var(--white-color);
+    min-block-size: rem(600);
 }
 
 .navbar {
@@ -9,7 +10,7 @@ body {
     justify-content: flex-end;
 
     inline-size: 100%;
-    block-size: rem(70);
+    block-size: rem(60);
     padding: 0 rem(16);
     background-color: var(--white-color);
 
@@ -23,7 +24,7 @@ body {
 
         img {
             transition: 250ms inline-size linear;
-            inline-size: rem(160);
+            inline-size: rem(140);
             block-size: auto;
 
             @include device(M) {
@@ -43,9 +44,15 @@ body {
             border: 1px solid var(--light-black-4);
             border-radius: rem(5);
             background-color: inherit;
-            block-size: rem(44);
-            inline-size: rem(44);
             transition: background-color 200ms linear;
+
+            block-size: rem(35);
+            inline-size: rem(35);
+
+            @include device(M) {
+                block-size: rem(44);
+                inline-size: rem(44);
+            }
 
             &:hover {
                 background-color: var(--light-black-4);
@@ -63,8 +70,15 @@ body {
                 inline-size: 60%;
 
                 &:nth-child(2) {
-                    margin-left: rem(-9);
+                    margin-left: rem(-5);
                     inline-size: 40%;
+                }
+
+                @include device(M) {
+                    &:nth-child(2) {
+                        margin-left: rem(-9);
+                        inline-size: 40%;
+                    }
                 }
 
                 &:not(:last-child) {
@@ -96,6 +110,10 @@ body {
 
     padding: rem(16);
 
+    @supports not (inline-size: 0%) {
+        width: 0%;
+    }
+
     @include device(M) {
         padding: rem(16) rem(32);
     }
@@ -104,17 +122,20 @@ body {
         opacity: 1;
         overflow: auto;
         visibility: visible;
-        block-size: 100vh;
         inline-size: 100%;
         pointer-events: all;
 
+        @supports not (inline-size: 100%) {
+            width: 100%;
+        }
+
         @include device(M) {
-            inline-size: 50%;
+            inline-size: rem(500);
         }
     }
 
     &--overlay {
-        transition: 200ms all ease-in-out;
+        transition: 300ms all ease-in-out;
         z-index: 1;
         display: block;
         position: fixed;
@@ -122,6 +143,7 @@ body {
         left: 0;
         inline-size: 100%;
         block-size: 100vh;
+        backdrop-filter: blur(1 px);
         background-color: rgba(0, 0, 0, 0.8);
         visibility: visible;
         opacity: 1;
@@ -142,19 +164,6 @@ body {
         inline-size: 100%;
     }
 
-    &__logo {
-        margin-right: auto;
-
-        img {
-            visibility: visible;
-            inline-size: rem(150);
-
-            @include device(M) {
-                visibility: hidden;
-            }
-        }
-    }
-
     &__close {
         &--button {
             display: flex;
@@ -162,18 +171,17 @@ body {
             align-items: center;
             justify-content: center;
 
+            border: 1px solid var(--light-black-4);
             border-radius: rem(5);
             background-color: inherit;
-            block-size: rem(44);
-            inline-size: rem(44);
             transition: background-color 200ms linear;
 
-            &:hover {
-                background-color: var(--light-black-4);
-            }
+            block-size: rem(35);
+            inline-size: rem(35);
 
-            &:active {
-                background-color: var(--light-black-3);
+            @include device(M) {
+                block-size: rem(44);
+                inline-size: rem(44);
             }
 
             img {
@@ -192,11 +200,29 @@ body {
     }
 
     &__heading {
-        margin-bottom: rem(5);
+        font-size: rem(16);
+        color: var(--black-color);
+        border-radius: rem(5);
+        padding: rem(8) 0;
     }
 
     &__timeGroup {
+        border-radius: rem(10);
+        padding: 0 rem(10);
+        border: 1px solid var(--light-black-4);
         margin: rem(10) 0;
+
+        .view-more {
+            min-width: rem(110);
+            display: block;
+            color: var(--white-color);
+            background-color: var(--black-color);
+            border: 1px solid var(--light-black-4);
+            font-size: rem(11);
+            padding: rem(8);
+            border-radius: rem(5);
+            margin-bottom: rem(10);
+        }
     }
 
     &__timeInfo {
@@ -207,11 +233,66 @@ body {
         padding: rem(8) 0;
 
         p {
-            font-weight: 600;
+            font-size: rem(13);
+            font-weight: 500;
+
+            span {
+                color: var(--light-black-2);
+                font-weight: normal;
+            }
         }
 
         >.solved-time {
+            font-weight: 600;
+            color: var(--black-color);
             margin-right: auto;
+        }
+    }
+
+    &__reset {
+        display: block;
+        border-top: 1px solid var(--light-black-4);
+        padding: rem(16) 0;
+
+        h2,
+        p {
+            margin-bottom: rem(10);
+        }
+
+        input,
+        button {
+            margin-bottom: rem(10);
+            inline-size: 100%;
+        }
+
+        .reset {
+            &-input {
+                padding: rem(10) rem(16);
+                color: var(--black-color);
+                border: 1px solid var(--light-black-3);
+                border-radius: rem(5);
+            }
+
+            &-button {
+                text-transform: uppercase;
+                font-weight: 500;
+                color: var(--white-color);
+                background-color: var(--error-color);
+                padding: rem(10);
+                border-radius: rem(5);
+            }
+        }
+    }
+
+    &__footer {
+        a {
+            font-weight: 500;
+            color: var(--black-color)
+        }
+
+        p,
+        a {
+            font-size: rem(10);
         }
     }
 }
