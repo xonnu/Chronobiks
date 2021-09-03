@@ -316,7 +316,11 @@ body {
 
         h1 {
             font-family: $font-family-2;
-            font-size: rem(150);
+            font-size: rem(100);
+
+            @include device(M) {
+                font-size: rem(150);
+            }
         }
 
         .timer {

@@ -464,7 +464,13 @@ body {
 
 .timer__trigger h1 {
   font-family: "Rajdhani", sans-serif;
-  font-size: 9.375rem;
+  font-size: 6.25rem;
+}
+
+@media screen and (min-width: 790px) {
+  .timer__trigger h1 {
+    font-size: 9.375rem;
+  }
 }
 
 .timer__trigger .timer {
