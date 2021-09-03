@@ -186,12 +186,8 @@
  const touchDown = event => {
    if (event.repeat) return;
    if (event.target.closest("#resetButton")) return;
- 
-   if (event.touches.length > 1) {
-     lastKeyUpAt = new Date();
-   } else {
-     pressVerify();
-   }
+   if (event.touches.length > 1) return lastKeyUpAt = new Date();
+   pressVerify();
  };
  
  const touchRelease = event => {
