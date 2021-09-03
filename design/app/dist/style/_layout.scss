@@ -1,6 +1,14 @@
 body {
     background-color: var(--white-color);
-    min-block-size: rem(600);
+    overflow-y: hidden;
+}
+
+.go {
+    background-color: var(--go-color);
+
+    &--hide {
+        background-color: var(--white-color);
+    }
 }
 
 .navbar {
@@ -12,7 +20,7 @@ body {
     inline-size: 100%;
     block-size: rem(60);
     padding: 0 rem(16);
-    background-color: var(--white-color);
+    background-color: inherit;
 
     @include device(M) {
         block-size: rem(80);
@@ -295,4 +303,32 @@ body {
             font-size: rem(10);
         }
     }
+}
+
+.timer {
+    &__trigger {
+        display: grid;
+        place-content: center;
+
+        inline-size: 100%;
+        block-size: 70%;
+        background-color: inherit;
+
+        h1 {
+            font-family: $font-family-2;
+            font-size: rem(150);
+        }
+
+        .timer {
+            text-align: center;
+            display: block;
+
+            &-guide {
+                p {
+                    font-size: rem(14);
+                }
+            }
+        }
+    }
+
 }

@@ -24,6 +24,10 @@
     --go-color: #{$go-color};
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 html,
 body {
     block-size: 100%;

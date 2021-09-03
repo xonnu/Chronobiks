@@ -30,6 +30,10 @@
   --go-color: #00ad68;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body {
   block-size: 100%;
@@ -92,7 +96,15 @@ h4 {
 
 body {
   background-color: var(--white-color);
-  min-block-size: 37.5rem;
+  overflow-y: hidden;
+}
+
+.go {
+  background-color: var(--go-color);
+}
+
+.go--hide {
+  background-color: var(--white-color);
 }
 
 .navbar {
@@ -112,7 +124,7 @@ body {
   inline-size: 100%;
   block-size: 3.75rem;
   padding: 0 1rem;
-  background-color: var(--white-color);
+  background-color: inherit;
 }
 
 @media screen and (min-width: 790px) {
@@ -439,6 +451,29 @@ body {
 .sidebar__footer p,
 .sidebar__footer a {
   font-size: 0.625rem;
+}
+
+.timer__trigger {
+  display: -ms-grid;
+  display: grid;
+  place-content: center;
+  inline-size: 100%;
+  block-size: 70%;
+  background-color: inherit;
+}
+
+.timer__trigger h1 {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 9.375rem;
+}
+
+.timer__trigger .timer {
+  text-align: center;
+  display: block;
+}
+
+.timer__trigger .timer-guide p {
+  font-size: 0.875rem;
 }
 
 /* Hey, future Chrono, try to make it better soon. 2021  */

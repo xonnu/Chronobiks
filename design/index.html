@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body id="go" class="go go--hide">
     <div class="sidebar--overlay sidebar--overlay--close"></div>
 
     <nav class="navbar">
@@ -124,6 +124,16 @@
             <p>Made with ☕ by <a href="https://fb.me/heychrono" target="_blank" rel="noopener noreferrer">Justin Pacual</a>—Chronobiks v1 | September 2021 <a href="../LICENSE.md" target="_blank" rel="noopener noreferrer">MIT License</a></p>
         </div>
     </div>
+
+    <section class="timer__trigger">
+        <div class="timer">
+            <h1>00:00</h1>
+
+            <div class="timer-guide">
+                <p>Hold space/touch to run the timer.</p>
+            </div>
+        </div>
+    </section>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js" defer></script>
 <script src="app/dist/script/sidebar.js" defer></script>
