@@ -187,10 +187,8 @@
    if (event.repeat) return;
    if (event.target.closest("#resetButton")) return;
  
-   // Temporary cover to bug hole :'>
-   // Please help me, I want to disable more than 1 touch
    if (event.touches.length > 1) {
-     location.href = "index.html?modal=guide";
+     lastKeyUpAt = new Date();
    } else {
      pressVerify();
    }
