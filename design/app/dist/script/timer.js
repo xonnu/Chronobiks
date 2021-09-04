@@ -226,7 +226,6 @@ const mouseClickRelease = () => {
 
 const touchDown = event => {
     if (event.repeat) return;
-    if (event.target.closest("#resetButton")) return;
     if (event.target.closest(".timer-guide")) return;
     if (sidebar.classList.contains('sidebar--open')) return;
     if (event.touches.length > 1) return lastKeyUpAt = new Date();
