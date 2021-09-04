@@ -372,6 +372,9 @@ body {
     }
 
     &__newest {
+        position: absolute;
+        bottom: 0;
+        padding: 0 rem(16);
         display: grid;
         place-items: center;
         inline-size: 100%;
@@ -382,7 +385,28 @@ body {
         }
 
         .social-media {
+            display: flex;
+            flex-direction: row;
+            gap: rem(8);
             padding: rem(10) 0;
+
+            p {
+                font-size: rem(11);
+                margin-right: rem(5);
+            }
+
+            a {
+                &:hover {
+                    img {
+                        opacity: 1;
+                    }
+                }
+            }
+
+            img {
+                opacity: 0.5;
+                width: rem(18);
+            }
         }
     }
 
@@ -392,5 +416,6 @@ body {
         border: 1px solid var(--light-black-4);
         margin: rem(10) 0;
         inline-size: rem(350);
+
     }
 }
