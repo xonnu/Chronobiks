@@ -91,7 +91,7 @@
             <div class="sidebar__timeGroup">
                 <h4 class="sidebar__heading">⛅ Today</h4>
                 
-                <div class="sidebar__timeInfo" v-for="list in sortedTimeList">
+                <div class="sidebar__timeInfo" v-for="list in timeListFromStorage.slice(0, todayListCount).reverse()">
                     <template v-if="list.date == currentDateToday">
                         <p class="solved-time">{{ list.time }} <span>sec</span></p>
                         <p>Today</p>
