@@ -10,10 +10,27 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body id="go" class="go go--hide">
+    <div class="modal__container modal--hide" id="modal">
+
+        <div class="modal__heading">
+            <h2>🎉 Hi, welcome to Chronobiks! </h2>
+        </div>
+
+        <div class="modal__message">
+           <p>This web app was created by <a href="http://facebook.com/heychrono" target="_blank" rel="noopener noreferrer"><b>@heychrono</b></a>, this was his personal project called <b>Chronobiks</b>. Chrono built this for himself and to others, this website application helps the Rubik’s beginners to gain an insight of their improvements.</p><br>
+
+           <p class="highlight"><b>Note:</b> Your data will be stored in your browser, so if you clear your browser cache or uninstall your browser, your data will be lost permanently, this web app doesn’t gather any information about you, use it for free & give feedbacks for improvement.</p>
+        </div>
+
+        <div class="modal__cta">
+            <button id="understand">I undestand</button>
+        </div>
+
+    </div>
     <div class="sidebar--overlay sidebar--overlay--close"></div>
 
     <nav class="navbar">
@@ -41,42 +58,42 @@
             </div>
         </div>
 
-        <div class="sidebar__timelist">
+        <div class="sidebar__timelist" id="app-list">
 
             <div class="sidebar__timeGroup">
                 <h4 class="sidebar__heading">🔥 Best</h4>
                 <div class="sidebar__timeInfo">
-                    <p class="solved-time">50.69 <span>sec</span></p>
-                    <p>10 Jul 2018</p>
+                    <template v-if="bestSolvedTimeReactive == Infinity">
+                        <p class="solved-time">00.00 <span>sec</span></p>
+                    <p>Today</p>
+                    </template>
+                    <template v-else>
+                        <p class="solved-time">{{ bestSolvedTimeReactive }} <span>sec</span></p>
+                    <p>{{ bestSolvedDateReactive }}</p>
+                    </template>
                 </div>
             </div>
 
             <div class="sidebar__timeGroup">
                 <h4 class="sidebar__heading">😪 Worst</h4>
                 <div class="sidebar__timeInfo">
-                    <p class="solved-time">50.69 <span>sec</span></p>
-                    <p>10 Jul 2018</p>
+                    <template v-if="worstSolvedTimeReactive == -Infinity">
+                        <p class="solved-time">00.00 <span>sec</span></p>
+                    <p>Today</p>
+                    </template>
+                    <template v-else>
+                        <p class="solved-time">{{ worstSolvedTimeReactive }} <span>sec</span></p>
+                    <p>{{ worstSolvedDateReactive }}</p>
+                    </template>
                 </div>
             </div>
 
             <div class="sidebar__timeGroup">
                 <h4 class="sidebar__heading">⛅ Today</h4>
-                <div class="sidebar__timeInfo">
-                    <p class="solved-time">50.69 <span>sec</span></p>
-                    <p>10 Jul 2018</p>
-                </div>
-                <div class="sidebar__timeInfo">
-                    <p class="solved-time">50.69 <span>sec</span></p>
-                    <p>10 Jul 2018</p>
-                </div>
-                <div class="sidebar__timeInfo">
-                    <p class="solved-time">50.69 <span>sec</span></p>
-                    <p>10 Jul 2018</p>
-                </div>
 
-                <div class="sidebar__timeInfo">
-                    <p class="solved-time">50.69 <span>sec</span></p>
-                    <p>10 Jul 2018</p>
+                <div class="sidebar__timeInfo" v-for="list in timeListFromStorage.slice().reverse()">
+                    <p class="solved-time">{{ list.time }} <span>sec</span></p>
+                    <p>{{list.date}}</p>
                 </div>
 
                 <div class="sidebar__timeInfo">
@@ -127,7 +144,9 @@
 
     <section class="timer__trigger">
         <div class="timer">
-            <h1>00:00</h1>
+            <h1 id="timer">
+                <span id="seconds">00</span><span>:</span><span id="milliseconds">00</span>
+            </h1>
 
             <div class="timer-guide">
                 <p>Hold space/touch to run the timer.</p>
@@ -136,11 +155,22 @@
     </section>
 
     <div class="timer__newest">
-        <div class="timer__group">
+        <div class="timer__group" id="app-newest">
             <h4 class="sidebar__heading">✨ Newest</h4>
             <div class="sidebar__timeInfo">
-                <p class="solved-time">50.69 <span>sec</span></p>
-                <p>Today</p>
+                <template v-if="timeListFromStorage == null">
+                    <p class="solved-time">Hey, welcome to chronobiks!</p>
+                    <p>Today</p>
+                </template>
+                <p class="solved-time">{{newestTime}} <span>sec</span></p>
+                <template v-if="currentDateToday == newestDate">
+                    <p>Today</p>
+                </template>
+
+                <template v-else>
+                    <p>{{newestDate}}</p>
+                </template>
+
             </div>
         </div>
 
@@ -153,7 +183,10 @@
         </div>
     </div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js" defer></script>
-<script src="app/dist/script/sidebar.js" defer></script>
+<script src="app/dist/script/sidebar.js"></script>
+<script src="app/dist/script/timer.js"></script>
+<script src="app/dist/script/modal.js" async></script>
 
 </html>

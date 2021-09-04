@@ -105,12 +105,30 @@ body {
   background-color: var(--go-color);
 }
 
+.go #timer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  inline-size: 100%;
+  gap: 0.625rem;
+}
+
+.go #timer span:not(:nth-child(2)) {
+  inline-size: 6.25rem;
+}
+
+@media screen and (min-width: 790px) {
+  .go #timer span:not(:nth-child(2)) {
+    inline-size: 12.5rem;
+  }
+}
+
 .go .timer h1 {
-  -webkit-transition: 300ms ease-in-out;
-  transition: 300ms ease-in-out;
+  -webkit-transition: 200ms all ease-in-out;
+  transition: 200ms all ease-in-out;
   color: white;
   font-family: "Rajdhani", sans-serif;
-  font-size: 7.5rem;
+  font-size: 6.25rem;
 }
 
 @media screen and (min-width: 790px) {
@@ -316,6 +334,8 @@ body {
 .sidebar--overlay {
   -webkit-transition: 300ms all ease-in-out;
   transition: 300ms all ease-in-out;
+  -webkit-transition-property: opacity, visibility, background-color;
+  transition-property: opacity, visibility, background-color;
   z-index: 1;
   display: block;
   position: fixed;
@@ -323,8 +343,8 @@ body {
   left: 0;
   inline-size: 100%;
   block-size: 100vh;
-  -webkit-backdrop-filter: blur(1 px);
-          backdrop-filter: blur(1 px);
+  -webkit-backdrop-filter: blur(2px);
+          backdrop-filter: blur(2px);
   background-color: rgba(0, 0, 0, 0.8);
   visibility: visible;
   opacity: 1;
@@ -520,14 +540,14 @@ body {
 }
 
 .timer__newest {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
   display: block;
-  -webkit-transition: 300ms all ease-in-out;
-  transition: 300ms all ease-in-out;
+  -webkit-transition: 300ms bottom ease-in-out;
+  transition: 300ms bottom ease-in-out;
   inline-size: 90%;
 }
 
@@ -582,6 +602,81 @@ body {
   .timer__group {
     inline-size: 21.875rem;
   }
+}
+
+.modal--hide {
+  display: none;
+}
+
+.modal__container {
+  position: fixed;
+  z-index: 999;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background-color: var(--white-color);
+  inline-size: 90%;
+  padding: 1.5rem 1.875rem;
+  border-radius: 0.3125rem;
+}
+
+@media screen and (min-width: 790px) {
+  .modal__container {
+    max-inline-size: 31.25rem;
+  }
+}
+
+.modal__heading h2 {
+  letter-spacing: unset;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+@media screen and (min-width: 790px) {
+  .modal__heading h2 {
+    font-size: 1.5625rem;
+  }
+}
+
+.modal__message {
+  margin: 1rem 0;
+}
+
+.modal__message .highlight {
+  font-size: 0.75rem;
+  color: #002B52;
+  background-color: #D8F2FF;
+  padding: 1rem;
+  border-radius: 0.3125rem;
+}
+
+.modal__message .highlight b {
+  color: #002B52;
+}
+
+.modal__cta {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.modal__cta button {
+  border-radius: 0.3125rem;
+  padding: 0.625rem 1rem;
+  color: white;
+  min-inline-size: 6.25rem;
+  background-color: black;
 }
 
 /* Hey, future Chrono, try to make it better soon. 2021  */

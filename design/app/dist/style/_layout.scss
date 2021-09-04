@@ -7,17 +7,34 @@ body {
     transition: 400ms background-color ease-in-out;
     background-color: var(--go-color);
 
+    #timer {
+        display: flex;
+        inline-size: 100%;
+        gap: rem(10);
+
+        span {
+
+            &:not(:nth-child(2)) {
+                inline-size: rem(100);
+
+                @include device(M) {
+                    inline-size: rem(200);
+                }
+            }
+        }
+    }
+
+
     .timer {
         h1 {
-            transition: 300ms ease-in-out;
+            transition: 200ms all ease-in-out;
             color: $white-color;
             font-family: $font-family-2;
-            font-size: rem(120);
+            font-size: rem(100);
 
             @include device(M) {
                 font-size: rem(200);
             }
-
         }
 
         p {
@@ -41,6 +58,7 @@ body {
             p {
                 color: var(--light-black-2);
             }
+
         }
     }
 }
@@ -185,6 +203,7 @@ body {
 
     &--overlay {
         transition: 300ms all ease-in-out;
+        transition-property: opacity, visibility, background-color;
         z-index: 1;
         display: block;
         position: fixed;
@@ -192,7 +211,7 @@ body {
         left: 0;
         inline-size: 100%;
         block-size: 100vh;
-        backdrop-filter: blur(1 px);
+        backdrop-filter: blur(2px);
         background-color: rgba(0, 0, 0, 0.8);
         visibility: visible;
         opacity: 1;
@@ -372,12 +391,12 @@ body {
     }
 
     &__newest {
-        position: absolute;
+        position: fixed;
         bottom: 0;
         left: 50%;
         transform: translateX(-50%);
         display: block;
-        transition: 300ms all ease-in-out;
+        transition: 300ms bottom ease-in-out;
         inline-size: 90%;
 
         @include device(M) {
@@ -426,5 +445,70 @@ body {
             inline-size: rem(350);
         }
 
+    }
+}
+
+.modal {
+    &--hide {
+        display: none;
+    }
+
+    &__container {
+        position: fixed;
+        z-index: 999;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: var(--white-color);
+        inline-size: 90%;
+        padding: rem(24) rem(30);
+        border-radius: rem(5);
+
+        @include device(M) {
+            max-inline-size: rem(500);
+        }
+    }
+
+    &__heading {
+        h2 {
+            letter-spacing: unset;
+            font-size: rem(20);
+            font-weight: 700;
+
+            @include device(M) {
+                font-size: rem(25);
+            }
+        }
+    }
+
+    &__message {
+        margin: rem(16) 0;
+
+        .highlight {
+            font-size: rem(12);
+            color: #002B52;
+            background-color: #D8F2FF;
+            padding: rem(16);
+            border-radius: rem(5);
+
+            b {
+                color: #002B52;
+            }
+        }
+    }
+
+    &__cta {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+
+        button {
+            border-radius: rem(5);
+            padding: rem(10) rem(16);
+            color: $white-color;
+            min-inline-size: rem(100);
+            background-color: $black-color;
+        }
     }
 }

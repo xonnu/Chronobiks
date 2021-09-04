@@ -1,11 +1,11 @@
-const doc = document;
 /* inputs */
-const openButton = doc.querySelector('#open-button');
-const closeButton = doc.querySelector('#close-button');
+const openButton = document.querySelector('#open-button');
+const closeButton = document.querySelector('#close-button');
 /* design */
-const sidebar = doc.querySelector('.sidebar');
-const sidebarOverlay = doc.querySelector('.sidebar--overlay');
-const timeGroup = doc.querySelectorAll('.sidebar__timeGroup > *')
+const sidebar = document.querySelector('.sidebar');
+const sidebarOverlay = document.querySelector('.sidebar--overlay');
+const timeGroup = document.querySelectorAll('.sidebar__timeGroup > *')
+
 let delayAdded = 0.3;
 
 const openSidebar = () => {
@@ -19,7 +19,7 @@ const openSidebar = () => {
                 duration: .3,
                 delay: delayAdded,
                 opacity: 0,
-                ease: "expo. out out",
+                ease: "expo.out",
                 onComplete: () => {
                     delayAdded = 0.3;
                 }
@@ -41,39 +41,6 @@ openButton.addEventListener('click', openSidebar);
 closeButton.addEventListener('click', closeSidebar);
 
 
-const navbar = doc.querySelector('.navbar');
-const goTriggered = doc.querySelector('.go');
-const newestTime = doc.querySelector('.timer__newest');
-
-var lastKeyUpAt = 0;
-var isTriggered = false;
-
-const pressVerify = (holdDuration = 1000) => {
-    var keyDownAt = new Date();
-
-    if (isTriggered == true) {
-        isTriggered = false;
-    } else {
-        setTimeout(() => {
-            if (+keyDownAt > +lastKeyUpAt) {
-                newestTime.classList.add('timer__newest--timerRunning');
-                navbar.classList.add('navbar--timerRunning')
-                goTriggered.classList.remove('go--hide');
-                isTriggered = true;
-            } else {
-                isTriggered = false;
-            }
-        }, holdDuration);
-    }
-};
-
-doc.addEventListener('keypress', () => {
-
-    pressVerify()
-})
-
-doc.addEventListener('keyup', () => {
-    goTriggered.classList.add('go--hide');
-    lastKeyUpAt = new Date();
-    isTriggered = false;
-})
+const navbar = document.querySelector('.navbar');
+const goTriggered = document.querySelector('.go');
+const newestTime = document.querySelector('.timer__newest');
