@@ -110,7 +110,7 @@ body {
   transition: 300ms ease-in-out;
   color: white;
   font-family: "Rajdhani", sans-serif;
-  font-size: 9.375rem;
+  font-size: 7.5rem;
 }
 
 @media screen and (min-width: 790px) {
@@ -129,7 +129,7 @@ body {
 
 .go--hide .timer h1 {
   color: var(--black-color);
-  font-size: 8.125rem;
+  font-size: 6.25rem;
 }
 
 @media screen and (min-width: 790px) {
@@ -525,15 +525,20 @@ body {
   left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
-  -webkit-transition: 300ms -webkit-transform ease-in-out;
-  transition: 300ms -webkit-transform ease-in-out;
-  transition: 300ms transform ease-in-out;
-  transition: 300ms transform ease-in-out, 300ms -webkit-transform ease-in-out;
+  display: block;
+  -webkit-transition: 300ms all ease-in-out;
+  transition: 300ms all ease-in-out;
+  inline-size: 90%;
+}
+
+@media screen and (min-width: 790px) {
+  .timer__newest {
+    inline-size: auto;
+  }
 }
 
 .timer__newest--timerRunning {
-  -webkit-transform: translateY(9.375rem);
-          transform: translateY(9.375rem);
+  bottom: -100%;
 }
 
 .timer__newest .social-media {
@@ -571,7 +576,6 @@ body {
   padding: 0 0.625rem;
   border: 1px solid var(--light-black-4);
   margin: 0.625rem 0;
-  inline-size: 95%;
 }
 
 @media screen and (min-width: 790px) {

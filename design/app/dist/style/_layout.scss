@@ -12,7 +12,7 @@ body {
             transition: 300ms ease-in-out;
             color: $white-color;
             font-family: $font-family-2;
-            font-size: rem(150);
+            font-size: rem(120);
 
             @include device(M) {
                 font-size: rem(200);
@@ -31,7 +31,7 @@ body {
         .timer {
             h1 {
                 color: var(--black-color);
-                font-size: rem(130);
+                font-size: rem(100);
 
                 @include device(M) {
                     font-size: rem(160);
@@ -376,11 +376,16 @@ body {
         bottom: 0;
         left: 50%;
         transform: translateX(-50%);
+        display: block;
+        transition: 300ms all ease-in-out;
+        inline-size: 90%;
 
-        transition: 300ms transform ease-in-out;
+        @include device(M) {
+            inline-size: auto;
+        }
 
         &--timerRunning {
-            transform: translateY(rem(150));
+            bottom: -100%;
         }
 
         .social-media {
@@ -416,7 +421,6 @@ body {
         padding: 0 rem(10);
         border: 1px solid var(--light-black-4);
         margin: rem(10) 0;
-        inline-size: 95%;
 
         @include device(M) {
             inline-size: rem(350);
