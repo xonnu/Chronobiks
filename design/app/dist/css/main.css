@@ -100,11 +100,46 @@ body {
 }
 
 .go {
+  -webkit-transition: 400ms background-color ease-in-out;
+  transition: 400ms background-color ease-in-out;
   background-color: var(--go-color);
+}
+
+.go .timer h1 {
+  -webkit-transition: 300ms ease-in-out;
+  transition: 300ms ease-in-out;
+  color: white;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 9.375rem;
+}
+
+@media screen and (min-width: 790px) {
+  .go .timer h1 {
+    font-size: 12.5rem;
+  }
+}
+
+.go .timer p {
+  color: white;
 }
 
 .go--hide {
   background-color: var(--white-color);
+}
+
+.go--hide .timer h1 {
+  color: var(--black-color);
+  font-size: 8.125rem;
+}
+
+@media screen and (min-width: 790px) {
+  .go--hide .timer h1 {
+    font-size: 10rem;
+  }
+}
+
+.go--hide .timer p {
+  color: var(--light-black-2);
 }
 
 .navbar {
@@ -125,6 +160,10 @@ body {
   block-size: 3.75rem;
   padding: 0 1rem;
   background-color: inherit;
+  -webkit-transition: -webkit-transform 500ms ease-in-out;
+  transition: -webkit-transform 500ms ease-in-out;
+  transition: transform 500ms ease-in-out;
+  transition: transform 500ms ease-in-out, -webkit-transform 500ms ease-in-out;
 }
 
 @media screen and (min-width: 790px) {
@@ -212,6 +251,11 @@ body {
 
 .navbar__menu--button > span:not(:last-child) {
   margin-bottom: 0.3125rem;
+}
+
+.navbar--timerRunning {
+  -webkit-transform: translateY(-100%);
+          transform: translateY(-100%);
 }
 
 .sidebar {
@@ -443,6 +487,10 @@ body {
   border-radius: 0.3125rem;
 }
 
+.sidebar__reset .reset-button:hover {
+  background-color: red;
+}
+
 .sidebar__footer a {
   font-weight: 500;
   color: var(--black-color);
@@ -462,17 +510,6 @@ body {
   background-color: inherit;
 }
 
-.timer__trigger h1 {
-  font-family: "Rajdhani", sans-serif;
-  font-size: 6.25rem;
-}
-
-@media screen and (min-width: 790px) {
-  .timer__trigger h1 {
-    font-size: 9.375rem;
-  }
-}
-
 .timer__trigger .timer {
   text-align: center;
   display: block;
@@ -480,6 +517,34 @@ body {
 
 .timer__trigger .timer-guide p {
   font-size: 0.875rem;
+}
+
+.timer__newest {
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  inline-size: 100%;
+  -webkit-transition: 300ms -webkit-transform ease-in-out;
+  transition: 300ms -webkit-transform ease-in-out;
+  transition: 300ms transform ease-in-out;
+  transition: 300ms transform ease-in-out, 300ms -webkit-transform ease-in-out;
+}
+
+.timer__newest--timerRunning {
+  -webkit-transform: translateY(9.375rem);
+          transform: translateY(9.375rem);
+}
+
+.timer__newest .social-media {
+  padding: 0.625rem 0;
+}
+
+.timer__group {
+  border-radius: 0.625rem;
+  padding: 0 0.625rem;
+  border: 1px solid var(--light-black-4);
+  margin: 0.625rem 0;
+  inline-size: 21.875rem;
 }
 
 /* Hey, future Chrono, try to make it better soon. 2021  */

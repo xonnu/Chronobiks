@@ -4,10 +4,44 @@ body {
 }
 
 .go {
+    transition: 400ms background-color ease-in-out;
     background-color: var(--go-color);
+
+    .timer {
+        h1 {
+            transition: 300ms ease-in-out;
+            color: $white-color;
+            font-family: $font-family-2;
+            font-size: rem(150);
+
+            @include device(M) {
+                font-size: rem(200);
+            }
+
+        }
+
+        p {
+            color: $white-color;
+        }
+    }
 
     &--hide {
         background-color: var(--white-color);
+
+        .timer {
+            h1 {
+                color: var(--black-color);
+                font-size: rem(130);
+
+                @include device(M) {
+                    font-size: rem(160);
+                }
+            }
+
+            p {
+                color: var(--light-black-2);
+            }
+        }
     }
 }
 
@@ -21,6 +55,9 @@ body {
     block-size: rem(60);
     padding: 0 rem(16);
     background-color: inherit;
+
+    transition: transform 500ms ease-in-out;
+
 
     @include device(M) {
         block-size: rem(80);
@@ -94,6 +131,10 @@ body {
                 }
             }
         }
+    }
+
+    &--timerRunning {
+        transform: translateY(-100%);
     }
 }
 
@@ -288,6 +329,10 @@ body {
                 background-color: var(--error-color);
                 padding: rem(10);
                 border-radius: rem(5);
+
+                &:hover {
+                    background-color: darken($error-color, 10);
+                }
             }
         }
     }
@@ -314,15 +359,6 @@ body {
         block-size: 70%;
         background-color: inherit;
 
-        h1 {
-            font-family: $font-family-2;
-            font-size: rem(100);
-
-            @include device(M) {
-                font-size: rem(150);
-            }
-        }
-
         .timer {
             text-align: center;
             display: block;
@@ -335,4 +371,26 @@ body {
         }
     }
 
+    &__newest {
+        display: grid;
+        place-items: center;
+        inline-size: 100%;
+        transition: 300ms transform ease-in-out;
+
+        &--timerRunning {
+            transform: translateY(rem(150));
+        }
+
+        .social-media {
+            padding: rem(10) 0;
+        }
+    }
+
+    &__group {
+        border-radius: rem(10);
+        padding: 0 rem(10);
+        border: 1px solid var(--light-black-4);
+        margin: rem(10) 0;
+        inline-size: rem(350);
+    }
 }
