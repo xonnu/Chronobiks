@@ -90,35 +90,33 @@
 
             <div class="sidebar__timeGroup">
                 <h4 class="sidebar__heading">⛅ Today</h4>
-
-                <div class="sidebar__timeInfo" v-for="list in timeListFromStorage.slice().reverse()">
-                    <p class="solved-time">{{ list.time }} <span>sec</span></p>
-                    <p>{{list.date}}</p>
+                
+                <div class="sidebar__timeInfo" v-for="list in sortedTimeList">
+                    <template v-if="list.date == currentDateToday">
+                        <p class="solved-time">{{ list.time }} <span>sec</span></p>
+                        <p>Today</p>
+                    </template>
                 </div>
 
-                <div class="sidebar__timeInfo">
-                    <button class="view-more">🔎 View More</button>
+                <div class="sidebar__timeInfo" v-if="timeListFromStorage.length >= 6">
+                    <template v-if="timeListFromStorage.length > todayListCount">
+                        <button class="view-more" @click="todayListCount += 5">🔎 View More</button>
+                    </template>
+
+                    <template v-else>
+                        <button class="view-more" @click="todayListCount = 5">🔎 View less</button>
+                    </template>
                 </div>
             </div>
 
             <div class="sidebar__timeGroup">
                 <h4 class="sidebar__heading">📑 Past</h4>
-                <div class="sidebar__timeInfo">
-                    <p class="solved-time">50.69 <span>sec</span></p>
-                    <p>10 Jul 2018</p>
-                </div>
-                <div class="sidebar__timeInfo">
-                    <p class="solved-time">50.69 <span>sec</span></p>
-                    <p>10 Jul 2018</p>
-                </div>
-                <div class="sidebar__timeInfo">
-                    <p class="solved-time">50.69 <span>sec</span></p>
-                    <p>10 Jul 2018</p>
-                </div>
-
-                <div class="sidebar__timeInfo">
-                    <p class="solved-time">50.69 <span>sec</span></p>
-                    <p>10 Jul 2018</p>
+                <div class="sidebar__timeInfo" v-for="list in timeListFromStorage.slice().reverse()">
+                    <p class="solved-time">{{ list.time }} <span>sec</span></p>
+                        <p>
+                            <template v-if="currentDateToday == list.date">Today</template>
+                            <template v-else>{{ newestDate }}</template>
+                        </p> 
                 </div>
 
                 <div class="sidebar__timeInfo">
@@ -157,20 +155,20 @@
     <div class="timer__newest">
         <div class="timer__group" id="app-newest">
             <h4 class="sidebar__heading">✨ Newest</h4>
+
             <div class="sidebar__timeInfo">
-                <template v-if="timeListFromStorage == null">
-                    <p class="solved-time">Hey, welcome to chronobiks!</p>
-                    <p>Today</p>
-                </template>
-                <p class="solved-time">{{newestTime}} <span>sec</span></p>
-                <template v-if="currentDateToday == newestDate">
-                    <p>Today</p>
+                <template v-if="timeListFromStorage === 'false'">
+                   <p class="solved-time">Hi, welcome to chronobiks! 🎉</p>
+                   <p>Today</p>
                 </template>
 
                 <template v-else>
-                    <p>{{newestDate}}</p>
+                    <p class="solved-time">{{newestTime}} <span>sec</span></p>
+                    <p>
+                        <template v-if="currentDateToday == newestDate">Today</template>
+                        <template v-else>{{ newestDate }}</template>
+                    </p>
                 </template>
-
             </div>
         </div>
 

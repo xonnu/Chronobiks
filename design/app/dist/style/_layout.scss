@@ -384,6 +384,7 @@ body {
 
             &-guide {
                 p {
+                    pointer-events: none;
                     font-size: rem(14);
                 }
             }

@@ -536,6 +536,7 @@ body {
 }
 
 .timer__trigger .timer-guide p {
+  pointer-events: none;
   font-size: 0.875rem;
 }
 

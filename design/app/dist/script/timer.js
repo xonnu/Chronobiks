@@ -4,7 +4,6 @@
  *  Contact: https://fb.me/heychrono
  *
  */
-
 let seconds = 0;
 let timeSolved = 0;
 let milliseconds = 1;
@@ -13,6 +12,7 @@ let isRunTriggered = false;
 let isAlreadySecond = null;
 let millisecondsDuration = 20;
 let storageName = "chronobiks-2021";
+
 
 const dateObject = new Date();
 const currentMonth = dateObject.toLocaleString("default", {
@@ -62,8 +62,8 @@ let timerTrigger = () => {
 let getLocalStorageData = storageName => {
     return localStorage.getItem(storageName);
 };
-
-let oldTimeListData = JSON.parse(getLocalStorageData(storageName)) || "";
+let localStorageParse = JSON.parse(getLocalStorageData(storageName));
+let oldTimeListData = localStorageParse || "";
 let timeListDataStorage = [...oldTimeListData];
 
 // order id of the time list when browser is closed.
@@ -79,7 +79,7 @@ let timePerformance = performance => {
     timeListDataStorage.forEach(list => {
         if (!isNaN(list.time)) timeListArray.push(list.time);
     });
-    
+
     if (performance == "best") {
         return Math.min(...timeListArray);
     }
@@ -88,14 +88,14 @@ let timePerformance = performance => {
 
 let timePerformanceDate = performance => {
     let performanceDate;
-    
-    if(performance == 'best') {
+
+    if (performance == 'best') {
         timeListDataStorage.forEach(list => {
-            if(timePerformance('best') == list.time) performanceDate = list.date;
+            if (timePerformance('best') == list.time) performanceDate = list.date;
         });
     } else {
         timeListDataStorage.forEach(list => {
-            if(timePerformance('worst') == list.time) performanceDate = list.date;
+            if (timePerformance('worst') == list.time) performanceDate = list.date;
         });
     }
 
@@ -147,6 +147,19 @@ const updateTimerElement = () => {
     );
 };
 
+if (getLocalStorageData(storageName) == null){
+    localStorage.setItem(storageName, false)
+}
+
+let newestTimeVariable = () => {
+    if (getLocalStorageData(storageName) === 'false') return;
+    return timeListDataStorage.slice().reverse()[0].time;
+}
+let newestDateVariable = () => {
+    if (getLocalStorageData(storageName) === 'false') return;
+    return timeListDataStorage.slice().reverse()[0].date;
+}
+
 const updateAll = () => {
     timerTrigger();
     appList.$data.timeListFromStorage = timeListDataStorage;
@@ -154,8 +167,9 @@ const updateAll = () => {
     appList.$data.worstSolvedTimeReactive = timePerformance("worst");
     appList.$data.bestSolvedDateReactive = timePerformance("best");
     appList.$data.worstSolvedDateReactive = timePerformance("worst");
-    appNewest.$data.newestTime = timeListDataStorage.slice().reverse()[0].time;
-    appNewest.$data.newestDate = timeListDataStorage.slice().reverse()[0].date;
+    appNewest.$data.timeListFromStorage = getLocalStorageData(storageName);
+    appNewest.$data.newestTime = newestTimeVariable()
+    appNewest.$data.newestDate = newestDateVariable()
 };
 
 var lastKeyUpAt = 0;
@@ -186,7 +200,7 @@ const pressVerify = (holdDuration = 1000) => {
 
 const spaceKeyDown = event => {
     if (event.repeat) return;
-    if(sidebar.classList.contains('sidebar--open')) return;
+    if (sidebar.classList.contains('sidebar--open')) return;
     if (event.code == "Space") return pressVerify();
 };
 
@@ -200,7 +214,7 @@ const spaceKeyUp = event => {
 
 const mouseClickDown = event => {
     if (event.target.closest("#resetButton")) return;
-    if(sidebar.classList.contains('sidebar--open')) return;
+    if (sidebar.classList.contains('sidebar--open')) return;
     pressVerify();
 };
 
@@ -213,7 +227,7 @@ const mouseClickRelease = () => {
 const touchDown = event => {
     if (event.repeat) return;
     if (event.target.closest("#resetButton")) return;
-    if(sidebar.classList.contains('sidebar--open')) return;
+    if (sidebar.classList.contains('sidebar--open')) return;
     if (event.touches.length > 1) return lastKeyUpAt = new Date();
     pressVerify();
 };
@@ -234,19 +248,20 @@ document.addEventListener("touchend", touchRelease);
 
 const defaultTimeListData = [{
     id: 0,
-    time: "Hi, welcome to Chronobiks!",
+    time: '00.00',
     date: currentDateToday
 }];
 
 const appList = new Vue({
     el: "#app-list",
     data: {
+        todayListCount: 5,
         currentDateToday: currentDateToday,
         bestSolvedDateReactive: timePerformanceDate("best"),
         worstSolvedDateReactive: timePerformanceDate("worst"),
         bestSolvedTimeReactive: timePerformance("best"),
         worstSolvedTimeReactive: timePerformance("worst"),
-        timeListFromStorage: JSON.parse(getLocalStorageData(storageName)) || defaultTimeListData
+        timeListFromStorage: localStorageParse || defaultTimeListData
     },
     methods: {
         resetTimeList: function () {
@@ -266,12 +281,13 @@ const appList = new Vue({
     }
 });
 
+
 const appNewest = new Vue({
     el: "#app-newest",
     data: {
-        timeListFromStorage: JSON.parse(getLocalStorageData(storageName)) || defaultTimeListData,
+        timeListFromStorage: getLocalStorageData(storageName),
         currentDateToday: currentDateToday,
-        newestTime: JSON.parse(getLocalStorageData(storageName)).slice().reverse()[0].time,
-        newestDate: JSON.parse(getLocalStorageData(storageName)).slice().reverse()[0].date
+        newestTime: newestTimeVariable(),
+        newestDate: newestDateVariable()
     }
 })
