@@ -165,8 +165,8 @@ const updateAll = () => {
     appList.$data.timeListFromStorage = timeListDataStorage;
     appList.$data.bestSolvedTimeReactive = timePerformance("best");
     appList.$data.worstSolvedTimeReactive = timePerformance("worst");
-    appList.$data.bestSolvedDateReactive = timePerformance("best");
-    appList.$data.worstSolvedDateReactive = timePerformance("worst");
+    appList.$data.bestSolvedDateReactive = timePerformanceDate("best");
+    appList.$data.worstSolvedDateReactive = timePerformanceDate("worst");
     appNewest.$data.timeListFromStorage = getLocalStorageData(storageName);
     appNewest.$data.newestTime = newestTimeVariable()
     appNewest.$data.newestDate = newestDateVariable()
