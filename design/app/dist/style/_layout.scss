@@ -374,10 +374,9 @@ body {
     &__newest {
         position: absolute;
         bottom: 0;
-        padding: 0 rem(16);
-        display: grid;
-        place-items: center;
-        inline-size: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+
         transition: 300ms transform ease-in-out;
 
         &--timerRunning {
@@ -387,6 +386,7 @@ body {
         .social-media {
             display: flex;
             flex-direction: row;
+            justify-content: center;
             gap: rem(8);
             padding: rem(10) 0;
 
@@ -411,11 +411,16 @@ body {
     }
 
     &__group {
+        background-color: var(--white-color);
         border-radius: rem(10);
         padding: 0 rem(10);
         border: 1px solid var(--light-black-4);
         margin: rem(10) 0;
-        inline-size: rem(350);
+        inline-size: 95%;
+
+        @include device(M) {
+            inline-size: rem(350);
+        }
 
     }
 }

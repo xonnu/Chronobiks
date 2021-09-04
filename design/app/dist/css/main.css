@@ -522,11 +522,9 @@ body {
 .timer__newest {
   position: absolute;
   bottom: 0;
-  padding: 0 1rem;
-  display: -ms-grid;
-  display: grid;
-  place-items: center;
-  inline-size: 100%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
   -webkit-transition: 300ms -webkit-transform ease-in-out;
   transition: 300ms -webkit-transform ease-in-out;
   transition: 300ms transform ease-in-out;
@@ -546,6 +544,9 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   gap: 0.5rem;
   padding: 0.625rem 0;
 }
@@ -565,11 +566,18 @@ body {
 }
 
 .timer__group {
+  background-color: var(--white-color);
   border-radius: 0.625rem;
   padding: 0 0.625rem;
   border: 1px solid var(--light-black-4);
   margin: 0.625rem 0;
-  inline-size: 21.875rem;
+  inline-size: 95%;
+}
+
+@media screen and (min-width: 790px) {
+  .timer__group {
+    inline-size: 21.875rem;
+  }
 }
 
 /* Hey, future Chrono, try to make it better soon. 2021  */
