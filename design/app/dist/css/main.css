@@ -13,6 +13,10 @@
   font-size: 100%;
   -webkit-tap-highlight-color: transparent;
   letter-spacing: 0.03125rem;
+  -webkit-user-select: none !important;
+     -moz-user-select: none !important;
+      -ms-user-select: none !important;
+          user-select: none !important;
 }
 
 /* Customer Properties */

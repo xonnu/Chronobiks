@@ -251,7 +251,7 @@ const mouseClickRelease = () => {
 
 const touchDown = event => {
     if (event.repeat) return;
-    if (event.target.closest("#open-button")) return;
+    if (event.target.closest("#open-button") || event.target.closest(".timer__newest")) return;
     if (sidebar.classList.contains('sidebar--open')) return;
     if (!modalElement.classList.contains('modal--hide')) return;
     if (event.touches.length > 1) return lastKeyUpAt = new Date();
