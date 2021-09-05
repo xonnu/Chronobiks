@@ -84,7 +84,7 @@
             </div>
 
             <div class="sidebar__timeGroup">
-                <h4 class="sidebar__heading">😪 Worst</h4>
+                <h4 class="sidebar__heading">😵 Worst</h4>
                 <div class="sidebar__timeInfo">
                     <p class="solved-time">{{ worstSolvedTimeReactive }} <span>sec</span></p>
                     <p>
@@ -124,7 +124,7 @@
             </div>
 
             <div class="sidebar__timeGroup">
-                <h4 class="sidebar__heading">📑 Past <span>({{ timeListFromStorage.length }})</span> </h4>
+                <h4 class="sidebar__heading">📆 Past <span>({{ timeListFromStorage.length }})</span> </h4>
                 <template v-for="list in reverseTodayProperty.slice(0, pastListCount)">
                     <div class="sidebar__timeInfo">
                         <p class="solved-time">{{ list.time }} <span>sec</span></p>

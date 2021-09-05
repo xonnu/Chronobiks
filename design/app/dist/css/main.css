@@ -113,16 +113,26 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   inline-size: 100%;
   gap: 0.625rem;
 }
 
-.go #timer span:not(:nth-child(2)) {
+.go #timer span :first-child {
+  inline-size: auto;
+}
+
+.go #timer span:last-child {
   inline-size: 6.25rem;
 }
 
 @media screen and (min-width: 790px) {
-  .go #timer span:not(:nth-child(2)) {
+  .go #timer span:last-child {
     inline-size: 12.5rem;
   }
 }
@@ -550,6 +560,10 @@ body {
 .timer__trigger .timer {
   text-align: center;
   display: block;
+}
+
+.timer__trigger .timer-guide {
+  padding: 0 1rem;
 }
 
 .timer__trigger .timer-guide p {

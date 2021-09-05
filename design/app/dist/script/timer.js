@@ -119,7 +119,7 @@ let addTimeToList = () => {
     let solvedTimeList = {};
     let timeListDataStorageCount = timeListDataStorage.length;
 
-    let timeSplit = timeSolved.split(".");
+    let timeSplit = timeSolved.toString().split(".");
 
     if (timeSplit[1].length == 1) {
         timeSolved = `${timeSplit[0]}.0${timeSplit[1]}`;
@@ -246,7 +246,10 @@ const mouseClickDown = event => {
 const mouseClickRelease = () => {
     goTriggered.classList.add('go--hide');
     lastKeyUpAt = new Date();
-    if (isTriggered == true) return updateAll();
+    if (isTriggered == true) {
+        messageGuideElement.textContent = 'Hit space or touch to stop the timer';
+        return updateAll();
+    }
 };
 
 const touchDown = event => {
@@ -261,7 +264,10 @@ const touchDown = event => {
 const touchRelease = () => {
     goTriggered.classList.add('go--hide');
     lastKeyUpAt = new Date();
-    if (isTriggered === true) return updateAll();
+    if (isTriggered == true) {
+        messageGuideElement.textContent = 'Hit space or touch to stop the timer';
+        return updateAll();
+    }
 };
 
 // Triggers

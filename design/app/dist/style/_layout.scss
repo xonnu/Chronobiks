@@ -9,16 +9,21 @@ body {
 
     #timer {
         display: flex;
+        align-items: center;
+        justify-content: center;
         inline-size: 100%;
         gap: rem(10);
 
         span {
+            :first-child {
+                inline-size: auto;
+            }
 
-            &:not(:nth-child(2)) {
+            &:last-child {
                 inline-size: rem(100);
 
                 @include device(M) {
-                    inline-size: rem(200);
+                    inline-size: rem(200)
                 }
             }
         }
@@ -391,6 +396,8 @@ body {
             display: block;
 
             &-guide {
+                padding: 0 rem(16);
+
                 p {
                     user-select: none;
                     pointer-events: none;
