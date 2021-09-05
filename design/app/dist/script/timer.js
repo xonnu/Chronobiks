@@ -2,7 +2,8 @@
  *
  *  Developed by Justin Pascual - 2021
  *  Contact: https://fb.me/heychrono
- *
+ *  Github: https://github.com/heychrono
+ * 
  */
 let seconds = 0;
 let timeSolved = 0;
@@ -27,6 +28,7 @@ const millisecondsElement = document.querySelector("#milliseconds");
 const secondsElement = document.querySelector("#seconds");
 const timerElement = document.querySelector("#timer");
 const runButtonElement = document.querySelector("#runTimer");
+let messageGuideElement = document.querySelector('#message-guide');
 
 const changeElementValue = (content, variableName) => {
     return (variableName.textContent = content);
@@ -62,8 +64,15 @@ let timerTrigger = () => {
 let getLocalStorageData = storageName => {
     return localStorage.getItem(storageName);
 };
+
+const defaultTimeListData = [{
+    id: 1,
+    time: '00.00',
+    date: currentDateToday
+}];
+
 let localStorageParse = JSON.parse(getLocalStorageData(storageName));
-let oldTimeListData = localStorageParse || "";
+let oldTimeListData = localStorageParse || '';
 let timeListDataStorage = [...oldTimeListData];
 
 // order id of the time list when browser is closed.
@@ -75,6 +84,8 @@ for (let i = 0; i < oldTimeListData.length; i++) {
 
 let timePerformance = performance => {
     let timeListArray = [];
+
+    if (getLocalStorageData(storageName) == 'false') return '00.00';
 
     timeListDataStorage.forEach(list => {
         if (!isNaN(list.time)) timeListArray.push(list.time);
@@ -88,6 +99,8 @@ let timePerformance = performance => {
 
 let timePerformanceDate = performance => {
     let performanceDate;
+
+    if (timePerformance() == '00.00') return 'Today';
 
     if (performance == 'best') {
         timeListDataStorage.forEach(list => {
@@ -147,7 +160,7 @@ const updateTimerElement = () => {
     );
 };
 
-if (getLocalStorageData(storageName) == null){
+if (getLocalStorageData(storageName) == null) {
     localStorage.setItem(storageName, false)
 }
 
@@ -155,25 +168,31 @@ let newestTimeVariable = () => {
     if (getLocalStorageData(storageName) === 'false') return;
     return timeListDataStorage.slice().reverse()[0].time;
 }
+
 let newestDateVariable = () => {
     if (getLocalStorageData(storageName) === 'false') return;
     return timeListDataStorage.slice().reverse()[0].date;
 }
 
+
 const updateAll = () => {
     timerTrigger();
+    /* reactive update list */
     appList.$data.timeListFromStorage = timeListDataStorage;
+    appList.$data.reverseTodayProperty = [...timeListDataStorage.slice().reverse()];
     appList.$data.bestSolvedTimeReactive = timePerformance("best");
     appList.$data.worstSolvedTimeReactive = timePerformance("worst");
     appList.$data.bestSolvedDateReactive = timePerformanceDate("best");
     appList.$data.worstSolvedDateReactive = timePerformanceDate("worst");
-    appNewest.$data.timeListFromStorage = getLocalStorageData(storageName);
-    appNewest.$data.newestTime = newestTimeVariable()
-    appNewest.$data.newestDate = newestDateVariable()
+    /* reactive update newest */
+    appNewest.$data.timeListFromStorage = timeListDataStorage;
+    appNewest.$data.newestTime = newestTimeVariable();
+    appNewest.$data.newestDate = newestDateVariable();
 };
 
-var lastKeyUpAt = 0;
-var isTriggered = false;
+let lastKeyUpAt = 0;
+let isTriggered = false;
+let modalElement = document.querySelector('#modal');
 
 const pressVerify = (holdDuration = 1000) => {
     var keyDownAt = new Date();
@@ -182,17 +201,18 @@ const pressVerify = (holdDuration = 1000) => {
         isTriggered = false;
         newestTime.classList.remove('timer__newest--timerRunning');
         navbar.classList.remove('navbar--timerRunning');
+        messageGuideElement.textContent = 'Hold space or touch and hold anywhere to run the timer';
         updateAll();
     } else {
         setTimeout(() => {
             if (+keyDownAt > +lastKeyUpAt) {
+                messageGuideElement.textContent = 'Release space or touch to run the timer';
                 newestTime.classList.add('timer__newest--timerRunning');
                 navbar.classList.add('navbar--timerRunning')
                 goTriggered.classList.remove('go--hide');
                 isTriggered = true;
             } else {
                 isTriggered = false;
-
             }
         }, holdDuration);
     }
@@ -201,6 +221,7 @@ const pressVerify = (holdDuration = 1000) => {
 const spaceKeyDown = event => {
     if (event.repeat) return;
     if (sidebar.classList.contains('sidebar--open')) return;
+    if (!modalElement.classList.contains('modal--hide')) return;
     if (event.code == "Space") return pressVerify();
 };
 
@@ -208,13 +229,17 @@ const spaceKeyUp = event => {
     if (event.code == "Space") {
         goTriggered.classList.add('go--hide');
         lastKeyUpAt = new Date();
-        if (isTriggered == true) return updateAll();
+        if (isTriggered == true) {
+            messageGuideElement.textContent = 'Hit space or touch to stop the timer';
+            return updateAll();
+        }
     }
 };
 
 const mouseClickDown = event => {
-    if (event.target.closest("#resetButton")) return;
+    if (event.target.closest("#open-button")) return;
     if (sidebar.classList.contains('sidebar--open')) return;
+    if (!modalElement.classList.contains('modal--hide')) return;
     pressVerify();
 };
 
@@ -226,13 +251,14 @@ const mouseClickRelease = () => {
 
 const touchDown = event => {
     if (event.repeat) return;
-    if (event.target.closest(".timer-guide")) return;
+    if (event.target.closest("#open-button")) return;
     if (sidebar.classList.contains('sidebar--open')) return;
+    if (!modalElement.classList.contains('modal--hide')) return;
     if (event.touches.length > 1) return lastKeyUpAt = new Date();
     pressVerify();
 };
 
-const touchRelease = event => {
+const touchRelease = () => {
     goTriggered.classList.add('go--hide');
     lastKeyUpAt = new Date();
     if (isTriggered === true) return updateAll();
@@ -246,17 +272,29 @@ document.addEventListener("mouseup", mouseClickRelease);
 document.addEventListener("touchstart", touchDown);
 document.addEventListener("touchend", touchRelease);
 
-const defaultTimeListData = [{
-    id: 0,
-    time: '00.00',
-    date: currentDateToday
-}];
+let ifTimeListEmpty = (timeList) => {
+    return (timeList.length <= 0) ? defaultTimeListData : timeList;
+}
+
+// let getTimeListCountToday= (timeList) => {
+//     let timeListTodayArray = [];
+
+//     timeListDataStorage.forEach(list => {
+//         if(list.date == currentDateToday) {
+//             timeListTodayArray.push(list.date);
+//         }
+//     });
+
+//     return timeListTodayArray.length;
+// }
 
 const appList = new Vue({
     el: "#app-list",
     data: {
         todayListCount: 5,
+        pastListCount: 5,
         currentDateToday: currentDateToday,
+        reverseTodayProperty: ifTimeListEmpty([...timeListDataStorage.slice().reverse()]),
         bestSolvedDateReactive: timePerformanceDate("best"),
         worstSolvedDateReactive: timePerformanceDate("worst"),
         bestSolvedTimeReactive: timePerformance("best"),
@@ -264,23 +302,35 @@ const appList = new Vue({
         timeListFromStorage: localStorageParse || defaultTimeListData
     },
     methods: {
+        getTimeListCountToday: function () {
+            let timeListTodayArray = [];
+
+            timeListDataStorage.forEach(list => {
+                if (list.date == this.currentDateToday) {
+                    timeListTodayArray.push(list.date);
+                }
+            });
+
+            return timeListTodayArray.length;
+        },
         resetTimeList: function () {
             const resetData = [{
                 id: 1,
-                time: "Your data has been reset.",
+                time: "Your data has been reset. | 00.00",
                 date: currentDateToday
             }];
 
             resetTimerElement();
             this.bestSolvedTimeReactive = "00.00";
             this.worstSolvedTimeReactive = "00.00";
+            this.bestSolvedDateReactive = "Today";
+            this.worstSolvedDateReactive = "Today";
             timeListDataStorage = resetData;
             this.timeListFromStorage = resetData;
             localStorage.setItem(storageName, JSON.stringify(resetData));
         }
     }
 });
-
 
 const appNewest = new Vue({
     el: "#app-newest",
