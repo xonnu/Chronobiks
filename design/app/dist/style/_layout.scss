@@ -401,7 +401,11 @@ body {
                 p {
                     user-select: none;
                     pointer-events: none;
-                    font-size: rem(14);
+                    font-size: rem(12);
+
+                    @include device(M) {
+                        font-size: rem(14);
+                    }
                 }
             }
         }

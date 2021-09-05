@@ -572,7 +572,13 @@ body {
       -ms-user-select: none;
           user-select: none;
   pointer-events: none;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
+}
+
+@media screen and (min-width: 790px) {
+  .timer__trigger .timer-guide p {
+    font-size: 0.875rem;
+  }
 }
 
 .timer__newest {
