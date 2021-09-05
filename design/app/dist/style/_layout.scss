@@ -272,6 +272,11 @@ body {
         color: var(--black-color);
         border-radius: rem(5);
         padding: rem(8) 0;
+
+        span {
+            font-weight: 500;
+            color: var(--light-black-2);
+        }
     }
 
     &__timeGroup {
@@ -370,6 +375,9 @@ body {
 }
 
 .timer {
+    user-select: none;
+    pointer-events: none;
+
     &__trigger {
         display: grid;
         place-content: center;
@@ -384,6 +392,7 @@ body {
 
             &-guide {
                 p {
+                    user-select: none;
                     pointer-events: none;
                     font-size: rem(14);
                 }

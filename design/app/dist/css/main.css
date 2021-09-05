@@ -422,6 +422,11 @@ body {
   padding: 0.5rem 0;
 }
 
+.sidebar__heading span {
+  font-weight: 500;
+  color: var(--light-black-2);
+}
+
 .sidebar__timeGroup {
   border-radius: 0.625rem;
   padding: 0 0.625rem;
@@ -521,6 +526,14 @@ body {
   font-size: 0.625rem;
 }
 
+.timer {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  pointer-events: none;
+}
+
 .timer__trigger {
   display: -ms-grid;
   display: grid;
@@ -536,6 +549,10 @@ body {
 }
 
 .timer__trigger .timer-guide p {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   pointer-events: none;
   font-size: 0.875rem;
 }

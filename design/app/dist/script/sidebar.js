@@ -1,7 +1,6 @@
-/* inputs */
 const openButton = document.querySelector('#open-button');
 const closeButton = document.querySelector('#close-button');
-/* design */
+
 const sidebar = document.querySelector('.sidebar');
 const sidebarOverlay = document.querySelector('.sidebar--overlay');
 const timeGroup = document.querySelectorAll('.sidebar__timeGroup > *')
@@ -29,6 +28,7 @@ const openSidebar = () => {
 };
 
 const closeSidebar = () => {
+    if (!document.querySelector('#modal').classList.contains('modal--hide')) return;
     setTimeout(() => {
         sidebarOverlay.classList.add('sidebar--overlay--close');
     }, 400);
@@ -39,7 +39,6 @@ const closeSidebar = () => {
 sidebarOverlay.addEventListener('click', closeSidebar);
 openButton.addEventListener('click', openSidebar);
 closeButton.addEventListener('click', closeSidebar);
-
 
 const navbar = document.querySelector('.navbar');
 const goTriggered = document.querySelector('.go');

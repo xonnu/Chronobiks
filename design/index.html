@@ -31,6 +31,7 @@
         </div>
 
     </div>
+    
     <div class="sidebar--overlay sidebar--overlay--close"></div>
 
     <nav class="navbar">
@@ -69,7 +70,15 @@
                     </template>
                     <template v-else>
                         <p class="solved-time">{{ bestSolvedTimeReactive }} <span>sec</span></p>
-                    <p>{{ bestSolvedDateReactive }}</p>
+                        <p>
+                            <template v-if="currentDateToday == bestSolvedDateReactive">
+                                Today
+                            </template>
+
+                            <template v-else>
+                                {{ bestSolvedDateReactive }}
+                            </template>
+                        </p>
                     </template>
                 </div>
             </div>
@@ -77,50 +86,60 @@
             <div class="sidebar__timeGroup">
                 <h4 class="sidebar__heading">😪 Worst</h4>
                 <div class="sidebar__timeInfo">
-                    <template v-if="worstSolvedTimeReactive == -Infinity">
-                        <p class="solved-time">00.00 <span>sec</span></p>
-                    <p>Today</p>
+                    <p class="solved-time">{{ worstSolvedTimeReactive }} <span>sec</span></p>
+                    <p>
+                        <template v-if="currentDateToday == worstSolvedDateReactive">
+                            Today
+                        </template>
+
+                        <template v-else>
+                            {{ worstSolvedDateReactive }}
+                        </template>
+                    </p>
+                </div>
+            </div>
+
+            <div class="sidebar__timeGroup">
+                <h4 class="sidebar__heading">⛅ Today <span>({{ getTimeListCountToday() }})</span> </h4>
+                
+                <template v-for="list in reverseTodayProperty.slice(0, todayListCount)">
+                    <template v-if="list.date === currentDateToday">
+
+                        <div class="sidebar__timeInfo">
+                            <p class="solved-time">{{ list.time }} <span>sec</span></p>
+                            <p>Today</p>
+                        </div>
                     </template>
+                </template>
+
+                <div class="sidebar__timeInfo" v-if="getTimeListCountToday() > 5">
+                    <template v-if="getTimeListCountToday() > todayListCount">
+                        <button class="view-more" @click="todayListCount += 5">View More</button>
+                    </template>
+
                     <template v-else>
-                        <p class="solved-time">{{ worstSolvedTimeReactive }} <span>sec</span></p>
-                    <p>{{ worstSolvedDateReactive }}</p>
+                        <button class="view-more" @click="todayListCount = 5">View less</button>
                     </template>
                 </div>
             </div>
 
             <div class="sidebar__timeGroup">
-                <h4 class="sidebar__heading">⛅ Today</h4>
-                
-                <div class="sidebar__timeInfo" v-for="list in timeListFromStorage.slice(0, todayListCount).reverse()">
-                    <template v-if="list.date == currentDateToday">
+                <h4 class="sidebar__heading">📑 Past <span>({{ timeListFromStorage.length }})</span> </h4>
+                <template v-for="list in reverseTodayProperty.slice(0, pastListCount)">
+                    <div class="sidebar__timeInfo">
                         <p class="solved-time">{{ list.time }} <span>sec</span></p>
-                        <p>Today</p>
-                    </template>
-                </div>
+                        <p>{{list.date}}</p>
+                    </div>
+                </template>
 
                 <div class="sidebar__timeInfo" v-if="timeListFromStorage.length >= 6">
-                    <template v-if="timeListFromStorage.length > todayListCount">
-                        <button class="view-more" @click="todayListCount += 5">🔎 View More</button>
+                    <template v-if="timeListFromStorage.length > pastListCount">
+                        <button class="view-more" @click="pastListCount += 5"> View More</button>
                     </template>
 
                     <template v-else>
-                        <button class="view-more" @click="todayListCount = 5">🔎 View less</button>
+                        <button class="view-more" @click="pastListCount = 5"> View less</button>
                     </template>
-                </div>
-            </div>
-
-            <div class="sidebar__timeGroup">
-                <h4 class="sidebar__heading">📑 Past</h4>
-                <div class="sidebar__timeInfo" v-for="list in timeListFromStorage.slice().reverse()">
-                    <p class="solved-time">{{ list.time }} <span>sec</span></p>
-                        <p>
-                            <template v-if="currentDateToday == list.date">Today</template>
-                            <template v-else>{{ newestDate }}</template>
-                        </p> 
-                </div>
-
-                <div class="sidebar__timeInfo">
-                    <button class="view-more">🔎 View More</button>
                 </div>
             </div>
 
@@ -147,7 +166,7 @@
             </h1>
 
             <div class="timer-guide">
-                <p>Hold space/touch to run the timer.</p>
+                <p id="message-guide">Hold space or touch and hold anywhere to run the timer.</p>
             </div>
         </div>
     </section>
