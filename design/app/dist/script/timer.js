@@ -12,7 +12,7 @@ let isRunning = null;
 let isRunTriggered = false;
 let isAlreadySecond = null;
 let millisecondsDuration = 20;
-let storageName = "chronobiks-2021";
+let storageName = "chronobiks-2021-beta";
 
 
 const dateObject = new Date();
