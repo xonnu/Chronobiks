@@ -20,7 +20,7 @@ body {
             }
 
             &:last-child {
-                inline-size: rem(100);
+                inline-size: rem(80);
 
                 @include device(M) {
                     inline-size: rem(200)
@@ -35,7 +35,7 @@ body {
             transition: 200ms all ease-in-out;
             color: $white-color;
             font-family: $font-family-2;
-            font-size: rem(100);
+            font-size: rem(80);
 
             @include device(M) {
                 font-size: rem(200);
@@ -53,7 +53,7 @@ body {
         .timer {
             h1 {
                 color: var(--black-color);
-                font-size: rem(100);
+                font-size: rem(80);
 
                 @include device(M) {
                     font-size: rem(160);

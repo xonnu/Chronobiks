@@ -128,7 +128,7 @@ body {
 }
 
 .go #timer span:last-child {
-  inline-size: 6.25rem;
+  inline-size: 5rem;
 }
 
 @media screen and (min-width: 790px) {
@@ -142,7 +142,7 @@ body {
   transition: 200ms all ease-in-out;
   color: white;
   font-family: "Rajdhani", sans-serif;
-  font-size: 6.25rem;
+  font-size: 5rem;
 }
 
 @media screen and (min-width: 790px) {
@@ -161,7 +161,7 @@ body {
 
 .go--hide .timer h1 {
   color: var(--black-color);
-  font-size: 6.25rem;
+  font-size: 5rem;
 }
 
 @media screen and (min-width: 790px) {
