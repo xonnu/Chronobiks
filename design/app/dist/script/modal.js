@@ -1,4 +1,4 @@
-const modalStorageName = 'chronobiks-modal-view';
+const modalStorageName = 'chronobiks-modal-view-v1';
 const modal = document.querySelector("#modal");
 const modalButton = document.querySelector("#understand");
 const modalInnerElements = document.querySelectorAll('#modal > *');
@@ -6,7 +6,7 @@ const modalInnerElements = document.querySelectorAll('#modal > *');
 if(localStorage.getItem(modalStorageName) == null) {
     localStorage.setItem(modalStorageName, true);
 }
-console.log(localStorage.getItem(modalStorageName))
+
 if(localStorage.getItem(modalStorageName) === 'false') {
     modal.classList.add('modal--hide');
     sidebarOverlay.classList.add('sidebar--overlay--close');

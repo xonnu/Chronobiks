@@ -39,7 +39,3 @@ const closeSidebar = () => {
 sidebarOverlay.addEventListener('click', closeSidebar);
 openButton.addEventListener('click', openSidebar);
 closeButton.addEventListener('click', closeSidebar);
-
-const navbar = document.querySelector('.navbar');
-const goTriggered = document.querySelector('.go');
-const newestTime = document.querySelector('.timer__newest');

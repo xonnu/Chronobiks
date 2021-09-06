@@ -1,0 +1,93 @@
+*,
+*::before,
+*::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-size: 100%;
+    -webkit-tap-highlight-color: transparent;
+    letter-spacing: rem(.5);
+    user-select: none !important;
+}
+
+/* Customer Properties */
+:root {
+    /* text colors */
+    --black-color: #{$black-color};
+    --white-color: #{$white-color};
+    --light-black-1: #{$light-black-1};
+    --light-black-2: #{$light-black-2};
+    --light-black-3: #{$light-black-3};
+    --light-black-4: #{$light-black-4};
+    /* item colors */
+    --primary-color: #{$primary-color};
+    --error-color: #{$error-color};
+    --go-color: #{$go-color};
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+html,
+body {
+    block-size: 100%;
+    inline-size: 100%;
+}
+
+button,
+input,
+textarea {
+    font-family: $font-family-1 !important;
+    font: inherit;
+    border: 0;
+    font-size: rem(13);
+}
+
+a {
+    text-decoration: none;
+}
+
+b {
+    color: var(--black-color);
+}
+
+a,
+p {
+    font-size: rem(13);
+}
+
+button,
+a {
+    font-family: $font-family-1;
+    cursor: pointer;
+}
+
+button {
+
+    &:hover {
+        background-color: var(--light-black-4);
+    }
+
+    &:active {
+        background-color: var(--light-black-3);
+    }
+}
+
+img {
+    inline-size: 100%;
+}
+
+:is(h1, h2, h3, h4, h5, h6) {
+    letter-spacing: 1px;
+    font-family: $font-family-1;
+}
+
+p {
+    color: var(--light-black-2);
+    font-family: $font-family-1;
+}
+
+h4 {
+    font-size: rem(15)
+}

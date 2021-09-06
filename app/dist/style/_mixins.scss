@@ -1,0 +1,37 @@
+@mixin device($device) {
+    @if $device==S {
+        @media screen and (max-width: 480px) {
+            @content;
+        }
+    }
+
+    @else if $device==M {
+        @media screen and (min-width: 790px) {
+            @content;
+        }
+    }
+
+    @else if $device==L {
+        @media screen and (min-width: 863px) {
+            @content;
+        }
+    }
+
+    @else if $device==XL {
+        @media screen and (min-width: 1490px) {
+            @content;
+        }
+    }
+
+    @else if $device==XXL {
+        @media screen and (min-width: 1500px) {
+            @content;
+        }
+    }
+
+    @else if $device==XXXL {
+        @media screen and (min-width: 1800px) {
+            @content;
+        }
+    }
+}

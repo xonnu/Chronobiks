@@ -12,8 +12,7 @@ let isRunning = null;
 let isRunTriggered = false;
 let isAlreadySecond = null;
 let millisecondsDuration = 20;
-let storageName = "chronobiks-2021-beta";
-
+let storageName = "chronobiks-2021-v1";
 
 const dateObject = new Date();
 const currentMonth = dateObject.toLocaleString("default", {
@@ -28,7 +27,14 @@ const millisecondsElement = document.querySelector("#milliseconds");
 const secondsElement = document.querySelector("#seconds");
 const timerElement = document.querySelector("#timer");
 const runButtonElement = document.querySelector("#runTimer");
+const navbar = document.querySelector('.navbar');
+const goTriggered = document.querySelector('.go');
+const newestTime = document.querySelector('.timer__newest');
 let messageGuideElement = document.querySelector('#message-guide');
+
+if (localStorage.getItem(storageName) == null) {
+    localStorage.setItem(storageName, false)
+}
 
 const changeElementValue = (content, variableName) => {
     return (variableName.textContent = content);
@@ -160,10 +166,6 @@ const updateTimerElement = () => {
     );
 };
 
-if (getLocalStorageData(storageName) == null) {
-    localStorage.setItem(storageName, false)
-}
-
 let newestTimeVariable = () => {
     if (getLocalStorageData(storageName) === 'false') return;
     return timeListDataStorage.slice().reverse()[0].time;
@@ -282,18 +284,6 @@ let ifTimeListEmpty = (timeList) => {
     return (timeList.length <= 0) ? defaultTimeListData : timeList;
 }
 
-// let getTimeListCountToday= (timeList) => {
-//     let timeListTodayArray = [];
-
-//     timeListDataStorage.forEach(list => {
-//         if(list.date == currentDateToday) {
-//             timeListTodayArray.push(list.date);
-//         }
-//     });
-
-//     return timeListTodayArray.length;
-// }
-
 const appList = new Vue({
     el: "#app-list",
     data: {
@@ -320,20 +310,7 @@ const appList = new Vue({
             return timeListTodayArray.length;
         },
         resetTimeList: function () {
-            const resetData = [{
-                id: 1,
-                time: "Your data has been reset. | 00.00",
-                date: currentDateToday
-            }];
-
-            resetTimerElement();
-            this.bestSolvedTimeReactive = "00.00";
-            this.worstSolvedTimeReactive = "00.00";
-            this.bestSolvedDateReactive = "Today";
-            this.worstSolvedDateReactive = "Today";
-            timeListDataStorage = resetData;
-            this.timeListFromStorage = resetData;
-            localStorage.setItem(storageName, JSON.stringify(resetData));
+            
         }
     }
 });
@@ -347,3 +324,37 @@ const appNewest = new Vue({
         newestDate: newestDateVariable()
     }
 })
+
+let generateRandomIndex = (max) => {
+    return Math.floor((Math.random() * max) + 0);
+}
+
+const generateResetCode = () => {
+    const codeCharacters = ['rick', 'morty', 'scooby', 'senku', 'chrono', 'powfu', 'myopi', 'baki', 'kravets'];
+    const characterCount = codeCharacters.length;
+    return `${codeCharacters[generateRandomIndex(characterCount)]}-${codeCharacters[generateRandomIndex(characterCount)]}-${codeCharacters[generateRandomIndex(characterCount)]}-${codeCharacters[generateRandomIndex(characterCount)]}`;
+}
+
+const appReset = new Vue({
+    el: '#app-reset',
+    data: {
+        resetCode: '',
+        resetCodeGenerated: generateResetCode()
+    },
+    methods: {
+        resetMyList: function() {
+            const resetData = [{
+                id: 1,
+                time: "Reset, 00:00",
+                date: currentDateToday
+            }];
+
+            resetTimerElement();
+            timeListDataStorage = resetData;
+            appList.$data.timeListFromStorage = resetData;
+            localStorage.setItem(storageName, JSON.stringify(resetData));
+            location.reload();
+        }
+    }
+})
+
