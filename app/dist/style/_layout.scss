@@ -178,8 +178,7 @@ body {
     position: absolute;
     top: 0;
     right: 0;
-    z-index: 2;
-
+    z-index: 9999;
     padding: rem(16);
 
     @supports not (inline-size: 0%) {

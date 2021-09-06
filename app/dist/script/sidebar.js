@@ -8,6 +8,7 @@ const timeGroup = document.querySelectorAll('.sidebar__timeGroup > *')
 let delayAdded = 0.3;
 
 const openSidebar = () => {
+    document.querySelector('#_hj_feedback_container').style.display = 'none';
     sidebarOverlay.classList.remove('sidebar--overlay--close');
     setTimeout(() => {
         sidebar.classList.add('sidebar--open')
@@ -28,6 +29,7 @@ const openSidebar = () => {
 };
 
 const closeSidebar = () => {
+    document.querySelector('#_hj_feedback_container').removeAttribute('style');
     if (!document.querySelector('#modal').classList.contains('modal--hide')) return;
     setTimeout(() => {
         sidebarOverlay.classList.add('sidebar--overlay--close');

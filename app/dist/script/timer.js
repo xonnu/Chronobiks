@@ -201,6 +201,7 @@ const pressVerify = (holdDuration = 1000) => {
 
     if (isTriggered == true) {
         isTriggered = false;
+        document.querySelector('#_hj_feedback_container').removeAttribute('style');
         newestTime.classList.remove('timer__newest--timerRunning');
         navbar.classList.remove('navbar--timerRunning');
         messageGuideElement.textContent = 'Hold space or touch and hold anywhere to run the timer';
@@ -208,6 +209,7 @@ const pressVerify = (holdDuration = 1000) => {
     } else {
         setTimeout(() => {
             if (+keyDownAt > +lastKeyUpAt) {
+                document.querySelector('#_hj_feedback_container').style.display = 'none';
                 messageGuideElement.textContent = 'Release space or touch to run the timer';
                 newestTime.classList.add('timer__newest--timerRunning');
                 navbar.classList.add('navbar--timerRunning')
