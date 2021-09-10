@@ -56,7 +56,7 @@
         </div>
 
         <div class="modal__cta">
-            <button id="understand">I understand</button>
+            <button id="understand" aria-label="Continue">I understand</button>
         </div>
 
     </div>
@@ -71,7 +71,7 @@
         </div>
 
         <div class="navbar__menu">
-            <button class="navbar__menu--button" id="open-button">
+            <button class="navbar__menu--button" id="open-button" aria-label="open sidebar">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -82,7 +82,7 @@
     <div class="sidebar">
         <div class="sidebar__navigation">
             <div class="sidebar__close">
-                <button class="sidebar__close--button" id="close-button">
+                <button class="sidebar__close--button" id="close-button" aria-label="close sidebar">
                     <img src="app/build/assets/icons/icon-close.svg" alt="Close button">
                 </button>
             </div>
@@ -150,11 +150,11 @@
 
                 <div class="sidebar__timeInfo" v-if="getTimeListCountToday() > 5">
                     <template v-if="getTimeListCountToday() > todayListCount">
-                        <button class="view-more" @click="todayListCount += 5">View More</button>
+                        <button class="view-more" @click="todayListCount += 5" aria-label="view more list">View More</button>
                     </template>
 
                     <template v-else>
-                        <button class="view-more" @click="todayListCount = 5">View less</button>
+                        <button class="view-more" @click="todayListCount = 5" aria-label="view less list">View less</button>
                     </template>
                 </div>
             </div>
@@ -170,11 +170,11 @@
 
                 <div class="sidebar__timeInfo" v-if="timeListFromStorage.length >= 6">
                     <template v-if="timeListFromStorage.length > pastListCount">
-                        <button class="view-more" @click="pastListCount += 5"> View More</button>
+                        <button class="view-more" @click="pastListCount += 5"  aria-label="view more list"> View More</button>
                     </template>
 
                     <template v-else>
-                        <button class="view-more" @click="pastListCount = 5"> View less</button>
+                        <button class="view-more" @click="pastListCount = 5"  aria-label="view less list"> View less</button>
                     </template>
                 </div>
             </div>
@@ -188,7 +188,7 @@
             <p>To reset your time list, please type <b>{{resetCodeGenerated}}</b> below to reset.</p>
             <input type="text" placeholder="rick-and-morty" id="reset-code" v-model="resetCode" class="reset-input">
             <button type="button" class="reset-button" :disabled="resetCodeGenerated !== resetCode"
-                @click="resetMyList">Reset my list</button>
+                @click="resetMyList" aria-label="reset list">Reset my list</button>
         </div>
 
         <div class="sidebar__footer">
