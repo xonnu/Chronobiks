@@ -9,10 +9,10 @@ if(localStorage.getItem(modalStorageName) == null) {
 
 if(localStorage.getItem(modalStorageName) === 'false') {
     modal.classList.add('modal--hide');
-    sidebarOverlay.classList.add('sidebar--overlay--close');
+    document.querySelector('.sidebar--overlay').classList.add('sidebar--overlay--close');
 } else {
     modal.classList.remove('modal--hide');
-    sidebarOverlay.classList.remove('sidebar--overlay--close');
+    document.querySelector('.sidebar--overlay').classList.remove('sidebar--overlay--close');
 
     gsap.from(modal, {
         duration: 1,

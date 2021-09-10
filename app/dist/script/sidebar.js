@@ -8,7 +8,7 @@ const timeGroup = document.querySelectorAll('.sidebar__timeGroup > *')
 let delayAdded = 0.3;
 
 const openSidebar = () => {
-    document.querySelector('#_hj_feedback_container').style.display = 'none';
+    
     sidebarOverlay.classList.remove('sidebar--overlay--close');
     setTimeout(() => {
         sidebar.classList.add('sidebar--open')
@@ -22,20 +22,23 @@ const openSidebar = () => {
                 ease: "expo.out",
                 onComplete: () => {
                     delayAdded = 0.3;
+                    document.querySelector('#_hj_feedback_container').style.display = 'none';
                 }
             })
         })
     }, 250);
+    
 };
 
 const closeSidebar = () => {
-    document.querySelector('#_hj_feedback_container').removeAttribute('style');
+    
     if (!document.querySelector('#modal').classList.contains('modal--hide')) return;
     setTimeout(() => {
         sidebarOverlay.classList.add('sidebar--overlay--close');
     }, 400);
 
     sidebar.classList.remove('sidebar--open');
+    document.querySelector('#_hj_feedback_container').removeAttribute('style');
 };
 
 sidebarOverlay.addEventListener('click', closeSidebar);
