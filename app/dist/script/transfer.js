@@ -24,6 +24,7 @@ if(domain == oldDomain) {
 if(domain == newDomain) {
     if(localStorage.getItem('chronobiks-2021-v1') == 'false') {
         localStorage.setItem('chronobiks-2021-v1', atob(getTimeListData));
-        location.href = 'https://' + newDomain + '/?transfer_success=true'
+        alert('Please reload the page.');
+        location.href = '/?transfer_success=true'
     }
 }
